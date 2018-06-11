@@ -220,9 +220,9 @@ INSIGHT.REST.attendQRService = function ( token, eventNumber, classNum, qrPW ) {
  * @param  {String} token       사용자 토큰(id 대용)
  * @return {AjaxResult}
  */
-INSIGHT.REST.attendPWService = function ( eventNumber, password, token ) {
+INSIGHT.REST.attendPWService = function ( token, eventNumber, classNum, password ) {
 
-	var url = INSIGHT.serviceURL + "event/" + eventNumber + "/checkpw/" + password;
+	var url = INSIGHT.serviceURL + "event/" + eventNumber + "/class/" + classNum + "/checkpw/" + password;
 	var data = {};
 
 	return _post( url, token, data );

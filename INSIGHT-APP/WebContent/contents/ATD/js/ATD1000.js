@@ -6,6 +6,7 @@ var locationXY;
 var attendList;
 var eventID;
 var classNum;
+var token;
 
 var styles = {
 	ATTEND: 0,
@@ -56,6 +57,24 @@ var page = {
 		console.log( 'classid:' + eventDetail.classes[ 0 ].id );
 		page.initLayout();
 		page.initInterface( eventID );
+		
+		var elems = [].slice.call(document.querySelectorAll('.mobile-verify.pass'));
+
+		elems.forEach(function(el, i, array) {
+		  el.onkeypress = function(event) {
+		    // Validate key is a number
+		    var keycode = event.which;
+		    if (!(event.shiftKey === false && 
+		        (keycode === 46 || keycode === 8 || keycode === 37 || keycode === 39 || 
+		        (keycode >= 48 && keycode <= 57)))) {
+		      return;
+		    }
+		    var nextInput = i + 1;
+		    if (nextInput <= array.length) {
+		        array[nextInput].focus();
+		    }
+		  };
+		});
 
 	},
 
@@ -113,7 +132,20 @@ var page = {
 		$( '#btn-close-map' ).click( function () {
 			$( '#modal1' ).modal( 'close' );
 		} );
-
+		
+		$( '#btn-hidden-attend' ).click( function () {
+			var pwd = $('#input_hidden_1').val() + $('#input_hidden_2').val() + $('#input_hidden_3').val() + $('#input_hidden_4').val(); 
+			var attendResult = INSIGHT.REST.attendPWService( token, eventID, eventDetail.classes[ 0 ].id, pwd )
+			showAttendResult(attendResult);
+			if (attendResult.code==2 || attendResult.conde==3 || attendResult.code==304){
+				$('#hidden_atd_modal').modal('close')
+			}else{
+				$('#input_hidden_1').val("");
+				$('#input_hidden_2').val("");
+				$('#input_hidden_3').val("");
+				$('#input_hidden_4').val("");
+			}
+		} );
 
 	}
 }
@@ -331,58 +363,7 @@ var tryAttendance = function () {
 
 									/* QRCODE 서버 전송 및 response */
 									var attendResult = INSIGHT.REST.attendQRService( token, eventID, classNum, QRPW );
-									if ( attendResult.customStatus === "success" ) {
-										//																if (attendResult.message === "success") {
-										switch ( attendResult.state ) {
-											case -2:
-												swal( "빨리 오셨네요.", "출석체크 시간이 아닙니다.", "warning" );
-												break;
-											case -1:
-												swal( "빨리 오셨네요", "수료체크 시간이 아닙니다.", "warning" );
-												break;
-											case 0:
-												swal( "늦으셨네요!", "출석체크 시간을 초과했습니다.", "error" );
-												break;
-											case 1:
-												console.log( '지각 ' );
-												swal( "Good job!", "조금 늦으셨네요.", "success" );
-												break;
-											case 2:
-												console.log( '정상출석!' );
-												swal( "Good job!", "출석체크가 완료되었습니다.", "success" );
-												break;
-											case 3:
-												console.log( '정상출석!' );
-												swal( "Good job!", "수료하기가 완료되었습니다.", "success" );
-												break;
-											case 300:
-												swal( "잘못된 행사입니다.", "관리자에게 문의해 주세요.", "success" );
-												break;
-											case 301:
-												swal( "등록되지 않은 유저 입니다.", "관리자에게 문의해 주세요.", "success" );
-												break;
-											case 302:
-												swal( "잘못된 QR코드 입니다.", "QR코드를 확인해 주세요.", "success" );
-												break;
-											case 303:
-												swal( "행사기간이 아닙니다.", "행사 기간내에 출석해 주세요.", "warning" );
-												break;
-											case 304:
-												console.log( '정상출석!' );
-												swal( "Good job!", "이미 출석체크 되었습니다.", "success" );
-												break;
-											case 305:
-												swal( "잘못된 패스워드 입니다.", "패스워드를 확인해 주세요.", "warning" );
-
-												break;
-
-										}
-										checkTodayAttend();
-										//
-									} else {
-										//																LEMP.EDUApp.errorService(attendResult,"출석 체크하기");
-										swal( "ERROR", "오류로 인해 처리되지 않았습니다.", "error" );
-									}
+									showAttendResult(attendResult);
 								}
 							}
 						} );
@@ -393,4 +374,61 @@ var tryAttendance = function () {
 			} );
 		}
 	} );
+}
+
+function showAttendResult(attendResult){
+	if ( attendResult.customStatus === "success" ) {
+		//																if (attendResult.message === "success") {
+		switch ( attendResult.code ) {
+			case -2:
+				swal( "빨리 오셨네요.", "출석체크 시간이 아닙니다.", "warning" );
+				break;
+			case -1:
+				swal( "빨리 오셨네요", "수료체크 시간이 아닙니다.", "warning" );
+				break;
+			case 0:
+				swal( "늦으셨네요!", "출석체크 시간을 초과했습니다.", "error" );
+				break;
+			case 1:
+				console.log( '지각 ' );
+				swal( "Good job!", "조금 늦으셨네요.", "success" );
+				break;
+			case 2:
+				console.log( '정상출석!' );
+				swal( "Good job!", "출석체크가 완료되었습니다.", "success" );
+				break;
+			case 3:
+				console.log( '정상출석!' );
+				swal( "Good job!", "수료하기가 완료되었습니다.", "success" );
+				break;
+			case 300:
+				swal( "잘못된 행사입니다.", "관리자에게 문의해 주세요.", "success" );
+				break;
+			case 301:
+				swal( "등록되지 않은 유저 입니다.", "관리자에게 문의해 주세요.", "success" );
+				break;
+			case 302:
+				swal( "잘못된 QR코드 입니다.", "QR코드를 확인해 주세요.", "success" );
+				break;
+			case 303:
+				swal( "행사기간이 아닙니다.", "행사 기간내에 출석해 주세요.", "warning" );
+				break;
+			case 304:
+				console.log( '정상출석!' );
+				swal( "Good job!", "이미 출석체크 되었습니다.", "success" );
+				break;
+			case 305:
+				swal( "잘못된 패스워드 입니다.", "패스워드를 확인해 주세요.", "warning" );
+				break;
+			default:
+				swal( "ERROR", "오류로 인해 처리되지 않았습니다.", "error" );
+				break;
+
+		}
+		checkTodayAttend();
+		//
+	} else {
+		//																LEMP.EDUApp.errorService(attendResult,"출석 체크하기");
+		swal( "ERROR", "오류로 인해 처리되지 않았습니다.", "error" );
+	}
 }

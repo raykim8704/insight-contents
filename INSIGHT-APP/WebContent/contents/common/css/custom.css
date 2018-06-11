@@ -93,3 +93,19 @@ textarea.materialize-textarea {
 .red_font {
 	color: #ef5350;
 }
+
+input.mobile-verify.pass.card-content.center.white-text.custom {
+	border-bottom: unset;
+    border-radius: unset; 
+    outline: unset;
+    height: unset;
+    width: 100%;
+    margin: unset;
+    padding: unset;
+    box-shadow: unset;
+    box-sizing: unset;
+    transition: unset;
+    padding-top: 15px; 
+    padding-bottom: 15px; 
+    font-size: 55px;
+}
