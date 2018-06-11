@@ -132,6 +132,12 @@ function revealBtn( fbDB, insightQuizInfo ) {
 	} else if ( realInfo.type === 3 ) {
 		$( '#btn_open_ended' ).text( "정답입력" )
 		$( '#answer_open_ended' ).prop( 'readonly', false );
+		$( '#answer_open_ended').val("")
+		$( '#answer_open_ended').css({
+			'color': 'inherit',
+	    	'font-style': 'normal',
+		});
+		$( '#btn_open_ended' ).removeClass("grey white-text")
 		$( '#openEndedButton' ).modal( 'open' )
 		$( '#openEndedContents' ).text( realInfo.title )
 		addOpenEndedClickEvent( realInfo.quizzesId, realInfo.id )
@@ -214,10 +220,22 @@ function addOpenEndedClickEvent( qGroup, qNumber ) {
 		var submitResult = INSIGHT.REST.submitQuizAnswer( eventID, qGroup, qNumber, [ $( '#answer_open_ended' ).val() ] );
 		if ( submitResult.code == 200 ) {
 			$( '#answer_open_ended' ).prop( 'readonly', true );
+			$( '#answer_open_ended').css({
+				'color': '#777',
+		    	'font-style': 'italic',
+			});
+			$( '#btn_open_ended').addClass('grey lighten-1 white-text')
 			$( '#btn_open_ended' ).text( "제출 완료!" )
 			$( '#btn_open_ended' ).unbind()
 		} else if ( submitResult.code == 1000 ) {
+			
 			$( '#answer_open_ended' ).prop( 'readonly', true );
+			$( '#answer_open_ended').css({
+				'color': '#777',
+		    	'font-style': 'italic',
+		    	'font-size': '20px'
+			});
+			$( '#btn_open_ended').addClass('grey lighten-1 white-text')
 			$( '#btn_open_ended' ).text( "제출 완료!" )
 			$( '#btn_open_ended' ).unbind()
 			Materialize.toast( '이미 정답을 제출한 문제입니다.', 3000 )

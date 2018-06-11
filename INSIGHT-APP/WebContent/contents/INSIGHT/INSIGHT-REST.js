@@ -567,7 +567,6 @@ function _post( url, token, data ) {
 			"x-auth-token": token
 		}
 	} ).done( function ( res ) {
-		console.log( res );
 		res.customStatus = "success";
 		result = res;
 
