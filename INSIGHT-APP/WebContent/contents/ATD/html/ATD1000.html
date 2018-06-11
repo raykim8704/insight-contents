@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="icon" href="../../common/images/favicon/favicon-32x32.png"
+	sizes="32x32">
+<!-- Favicons-->
+<link rel="apple-touch-icon-precomposed"
+	href="../../common/images/favicon/apple-touch-icon-152x152.png">
+<!-- For iPhone -->
+<meta name="msapplication-TileColor" content="#00bcd4">
+<meta name="msapplication-TileImage"
+	content="images/favicon/mstile-144x144.png">
+<!-- For Windows Phone -->
+<!-- CORE CSS-->
+<link href="../../common/css/materialize.css" type="text/css" rel="stylesheet">
+<link href="../../common/css/style.css" type="text/css" rel="stylesheet">
+<!-- Custome CSS-->
+<link href="../../common/css/custom.css" type="text/css" rel="stylesheet">
+<!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+<link href="../../common/vendors/perfect-scrollbar/perfect-scrollbar.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/jvectormap/jquery-jvectormap.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/flag-icon/css/flag-icon.min.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/sweetalert/dist/sweetalert.css"	type="text/css" rel="stylesheet">
+
+<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=3bab2bbf1e28db7836b4889e09a27979&autoload=false"></script>
+<script type="text/javascript" src="../../common/vendors/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../../LEMP/common/js/common.js" defer></script>
+<script type="text/javascript" src="../../INSIGHT/INSIGHT.js"></script>
+<script type="text/javascript" src="../js/ATD1000.js"></script>
+
+
+<!-- 	<link rel="stylesheet" type="text/css" href="../../LEMP/common/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../css/DIT1000.css"> -->
+
+
+<title>INSIGHT</title>
+</head>
+
+<body class="white">
+	<!-- Start Page Loading -->
+	<div id="loader-wrapper">
+		<div id="loader"></div>
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+	</div>
+	<!-- End Page Loading -->
+	<div id="header"></div>
+
+	<!--  START MAIN -->
+	<div class="main_no_padding_left" id="main">
+		<div id="hidden_atd_modal" class="modal">
+				<div id="ecommerce-offer">
+						<div class="row">
+						  <div class="col s12 m3">
+							<div class="card gradient-shadow gradient-45deg-light-blue-cyan border-radius-3">
+							  <div class="card-content center">
+								<img src="../../images/icon/apple-watch.png" class="width-40 border-round z-depth-5">
+								<h5 class="white-text lighten-4">50% Off</h5>
+								<p class="white-text lighten-4">On apple watch</p>
+							  </div>
+							</div>
+						  </div>
+						  <div class="col s12 m3">
+							<div class="card gradient-shadow gradient-45deg-red-pink border-radius-3">
+							  <div class="card-content center">
+								<img src="../../images/icon/printer.png" class="width-40 border-round z-depth-5">
+								<h5 class="white-text lighten-4">20% Off</h5>
+								<p class="white-text lighten-4">On Canon Printer</p>
+							  </div>
+							</div>
+						  </div>
+						  <div class="col s12 m3">
+							<div class="card gradient-shadow gradient-45deg-amber-amber border-radius-3">
+							  <div class="card-content center">
+								<img src="../../images/icon/laptop.png" class="width-40 border-round z-depth-5">
+								<h5 class="white-text lighten-4">40% Off</h5>
+								<p class="white-text lighten-4">On apple macbook</p>
+							  </div>
+							</div>
+						  </div>
+						  <div class="col s12 m3">
+							<div class="card gradient-shadow gradient-45deg-green-teal border-radius-3">
+							  <div class="card-content center">
+								<img src="../../images/icon/bowling.png" class="width-40 border-round z-depth-5">
+								<h5 class="white-text lighten-4">60% Off</h5>
+								<p class="white-text lighten-4">On any game</p>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+		</div>
+		<div class="wrapper">
+			<div id="sideNav"></div>
+			<div class="container">
+				<div class="section">
+					<div class="col s12 m4 l4">
+
+						<ul id="task-card" class="collection with-header">
+							<li class="collection-header grey lighten-1">
+								<div class="row" style="margin: 0px;">
+								
+									<div class="col s10">
+											<h5 id="hidden_atd_btn" class="task-card-title">
+											출석하기
+											</h5>
+									</div>
+									<div class="col s1">
+									<i class="material-icons white-text" id="btn-attend-info">info_outline</i>
+										<div id="modal-attend-info" class="modal">
+											<div class="modal-content">
+												<div class="row">
+													<div class="col s12">
+														<a class="waves-effect waves-light  btn red">출석하기</a>
+														<p>행사장 주변 300m 이내에서 QR코드를 입력해 주세요.</p>
+													</div>
+													<div class="col s12">
+														<a class="waves-effect waves-light  btn amber">수료하기</a>
+														<p>출석체크 이후, QR코드를 통해 수료해 주세요.</p>
+													</div>
+													<div class="col s12">
+														<a class="waves-effect waves-light  btn blue">출석완료</a>
+														<p>수료하기가 완료되어야 최종 출석이 완료 됩니다.</p>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<a href="#!"
+													class="modal-action modal-close waves-effect waves-green btn-flat"
+													id="btn-close-map">닫기</a>
+											</div>
+										</div>
+									</div>
+									<div class="col s1">
+										<i class="material-icons white-text" id="btn-location">location_on</i>
+										<div id="modal1" class="modal">
+											<div class="modal-content">
+												<div id="map" style="width:100%; height:250px;"></div>
+											
+											</div>
+											<div class="modal-footer">
+												<a href="#!"
+													class="modal-action modal-close waves-effect waves-green btn-flat"
+													id="btn-close-map">닫기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="collection-item" >
+
+								<div class="row valign-wrapper" style="margin-bottom: 0px;">
+									<div class="col s6 m6 l6 center-align">
+										<div class="flight-state">
+
+											<div class="title cyan-text">Today</div>
+											<div class="title" id="text-today"></div>
+
+										</div>
+									</div>
+									<div class="col s6 m6 l6 center-align">
+										<div class="flight-state">
+											<div class="pulse waves-effect waves-light btn-large "
+												id="btn-attend" style="font-size: 0.9em;"></div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="col s12 m4 l4">
+						<ul id="task-card" class="collection with-header list-attend-history">
+							<li class="collection-header grey lighten-1">
+								<div class="row" style="margin: 0px;">
+									<div class="col s11">
+										<h5 class="task-card-title">출석 결과 리스트</h5>
+									</div>
+									<div class="col s1">
+										<i class="material-icons white-text" id="btn-info">info_outline</i>
+										<div id="modal-info" class="modal">
+											<div class="modal-content">
+												<div class="row">
+													<div class="col s12">
+														<p class="red-text">결 석</p>
+														<p>행사에 출석하지 않음</p>
+													</div>
+													<div class="col s12">
+														<p class="amber-text">미수료</p>
+														<p>수료하기가 완료되지 않음</p>
+													</div>
+													<div class="col s12">
+														<p class="blue-text">출첵완료</p>
+														<p>출석 및 수료하기 완료</p>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<a href="#!"
+													class="modal-action modal-close waves-effect waves-green btn-flat"
+													id="btn-close-map">닫기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--materialize js-->
+	<script type="text/javascript" src="../../common/js/materialize.min.js"></script>
+	<!--scrollbar-->
+	<script type="text/javascript"
+		src="../../common/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script type="text/javascript"
+		src="../../common/vendors/jsrender/jsrender.min.js"></script>
+	<!-- <script src="../../common/vendors/select2/select2.min.js"></script> -->
+	<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+	<script type="text/javascript" src="../../common/js/plugins.js"></script>
+
+	<!-- <script type="text/javascript" src="../../js/scripts/advance-ui-carousel.js"></script> -->
+	<!--custom-script.js - Add your own theme custom JS-->
+	<script type="text/javascript" src="../../common/js/custom-script.js"></script>
+
+</body>
+
+</HTML>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="icon" href="../../common/images/favicon/favicon-32x32.png"
+	sizes="32x32">
+<!-- Favicons-->
+<link rel="apple-touch-icon-precomposed"
+	href="../../common/images/favicon/apple-touch-icon-152x152.png">
+<!-- For iPhone -->
+<meta name="msapplication-TileColor" content="#00bcd4">
+<meta name="msapplication-TileImage"
+	content="images/favicon/mstile-144x144.png">
+<!-- For Windows Phone -->
+<!-- CORE CSS-->
+<link href="../../common/css/materialize.css" type="text/css"
+	rel="stylesheet">
+<link href="../../common/css/style.css" type="text/css" rel="stylesheet">
+<!-- Custome CSS-->
+<link href="../../common/css/custom.css" type="text/css"
+	rel="stylesheet">
+<!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+<link
+	href="../../common/vendors/perfect-scrollbar/perfect-scrollbar.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/jvectormap/jquery-jvectormap.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/flag-icon/css/flag-icon.min.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/animate/css/animate.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/sweetalert/dist/sweetalert.css"	type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../../common/vendors/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../../LEMP/common/js/common.js"
+	defer></script>
+<script type="text/javascript" src="../../INSIGHT/INSIGHT.js"></script>
+<script type="text/javascript" src="../js/QNA3000.js"></script>
+
+
+<!-- 	<link rel="stylesheet" type="text/css" href="../../LEMP/common/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../css/DIT1000.css"> -->
+
+
+<title>INSIGHT</title>
+</head>
+
+<body class="white">
+	<!-- Start Page Loading -->
+	<div id="loader-wrapper">
+		<div id="loader"></div>
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+	</div>
+	<!-- End Page Loading -->
+	<div id="header"></div>
+
+	<!--  START MAIN -->
+	<div class="main_no_padding_left" id="main" style="padding-bottom:42px;">
+		<div class="wrapper">
+			<div id="sideNav"></div>
+			<div class="container">
+				<div class="section">
+					<div class="row" style="margin-bottom:8px;">
+						<div class="col s2 m2 l2 center-align" id="btn-cancle">
+							<i class="material-icons">keyboard_arrow_left</i>
+						</div>						
+					</div>
+					<div class="row"><div class="divider"></div></div>
+	
+					<div class="row">
+						<div class="col s12 m6 l6">
+							<div class="card">
+								<div class="card-content valign-wrapper"
+									style="padding-bottom: 9px; padding-top: 9px; border-bottom: 1px solid #EBEBEB;">
+									<div class="icon-preview col s1 valign-wrapper"
+										style="padding-left: 0px;">
+										<i class="material-icons">person_pin</i>
+									</div>
+									<div class="icon-preview col s10 valign-wrapper">
+										<div class="title" id="user-name"></div>
+									</div>
+									<div class="icon-preview col s1 valign-wrapper">
+										<a class='dropdown-button valign-wrapper ' href='#'
+											data-activates='dropdown1' id="icon-option"><i
+											class="material-icons">more_horiz</i></a>
+										<!-- Dropdown Structure -->
+										<ul id='dropdown1' class='dropdown-content'>
+											<li class="dropdown-mod"><a href="#!">수정</a></li>
+											<li class="dropdown-del"><a href="#!">삭제</a></li>
+
+										</ul>
+									</div>
+								</div>
+
+								<div class="card-content grey-text text-accent-3"
+									id="question-date"
+									style="margin: 0; padding: 5px 0 5px 24px; font-size: 12px;">
+								</div>
+
+								<div class="card-content">
+									<p id="question-content"></p>
+								</div>
+
+								<div class="divider"></div>
+								<div id="reply-section">
+									<div class="card-content animated fadeIn" id="comment-100">
+										<div class="row">
+											<div class="col s10 m10 l10">
+
+												<div class="title" style="font-weight: 1000;">student1234</div>
+												<p class="grey-text">contents</p>
+											</div>
+											<div class="col s2 m2 l2 center-align valign-wrapper">
+											<i class="material-icons prefix" id="btn-write-comment">delete</i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+						
+						<!-- END ROW -->
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+	   <!-- START FOOTER -->
+	<footer class="page-footer footer-fixed grey-text text-darken-3 white">
+	<div class="row valign-wrapper" style="margin: 0;"><div class="col s12 divider"></div></div>
+		<div class="row valign-wrapper" style="margin: 0;">
+			<div class="input-field col s9" style="margin-top: 0;">
+				<input id="textarea-reply" class="materialize-textarea" placeholder="Comment"
+					style="margin: 0 0 10px 8px; padding: 15px; height:1rem; min-height: 1rem; max-height: 10rem;" >
+				</input>
+			</div>
+			<div class="col s2 offset-s1 center-align " style="margin-top: 0;">
+				<i class="material-icons prefix" id="btn-write-comment">mode_edit</i>
+			</div>
+		</div>
+	</footer>
+	<!-- END FOOTER -->
+
+
+	<!--materialize js-->
+	<script type="text/javascript" src="../../common/js/materialize.min.js"></script>
+	<!--scrollbar-->
+	<script type="text/javascript"
+		src="../../common/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script type="text/javascript"
+		src="../../common/vendors/jsrender/jsrender.min.js"></script>
+	<!-- <script src="../../common/vendors/select2/select2.min.js"></script> -->
+	<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+	<script type="text/javascript" src="../../common/js/plugins.js"></script>
+
+	<!-- <script type="text/javascript" src="../../js/scripts/advance-ui-carousel.js"></script> -->
+	<!--custom-script.js - Add your own theme custom JS-->
+	<script type="text/javascript" src="../../common/js/custom-script.js"></script>
+
+</body>
+
+</HTML>

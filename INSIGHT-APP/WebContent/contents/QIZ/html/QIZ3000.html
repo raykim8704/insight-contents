@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="icon" href="../../common/images/favicon/favicon-32x32.png" sizes="32x32">
+<!-- Favicons-->
+<link rel="apple-touch-icon-precomposed" href="../../common/images/favicon/apple-touch-icon-152x152.png">
+<!-- For iPhone -->
+<meta name="msapplication-TileColor" content="#00bcd4">
+<meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+<!-- For Windows Phone -->
+<!-- CORE CSS-->
+<link href="../../common/css/materialize.css" type="text/css" rel="stylesheet">
+<link href="../../common/css/style.css" type="text/css" rel="stylesheet">
+<!-- Custome CSS-->
+<link href="../../common/css/custom.css" type="text/css" rel="stylesheet">
+<!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+<link href="../../common/vendors/perfect-scrollbar/perfect-scrollbar.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/jvectormap/jquery-jvectormap.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/flag-icon/css/flag-icon.min.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/animate/css/animate.css"	type="text/css" rel="stylesheet">
+<link href="../../common/vendors/sweetalert/dist/sweetalert.css"	type="text/css" rel="stylesheet">
+
+<script type="text/javascript" src="../../common/vendors/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../../LEMP/common/js/common.js"	defer></script>
+<script type="text/javascript" src="../../INSIGHT/INSIGHT.js"></script>
+
+
+<title>INSIGHT</title>
+</head>
+
+<body class="white">
+	<div class="loader-section section-right"></div>
+
+	<!-- End Page Loading -->
+	<div id="header"></div>
+
+	<!--  START MAIN -->
+	<div class="main_no_padding_left" id="main">
+		<!-- 		<video autoplay loop id="video-background" muted plays-inline
+			style="position: fixed; left: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -100;">
+			<source src="../video/backgroundvideo3.mp4" type="video/mp4">
+		</video> -->
+		<div class="wrapper">
+			<div id="sideNav"></div>
+			<div class="container">
+				<div class="section">
+					<div class="row" style="margin-bottom: 8px;">
+						<div class="col s2 m2 l2 center-align" id="btn-cancle" >
+							<i style="line-height:37px;" class="material-icons">keyboard_arrow_left</i>
+						</div>
+						<div class="col s8 m8 l8 center-align" >
+							<div class="chip grey lighten-4 grey-text" id="panel-current-num">문제 번호를 선택해 주세요</div>
+						</div>
+						<div class="col s2 m2 l2 center-align" id="btn-remote-info" style="line-height:37px; inline-size:fit-content; border-radius:10px;">
+							랭킹
+						</div>
+
+					</div>
+
+					<div class="row" style="padding: 0 0.50rem;">
+						<div id="q-num" class="col s12 m12 l12">
+							<div class="carousel carousel-slider center" data-indicators="true" >
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+		   <!-- START FOOTER -->
+ 	<footer class="page-footer footer-fixed grey lighten-2 grey-text text-darken-3 white">
+
+		<div class="row" style="margin-bottom:0px;">
+			<div id="detail-remocon-area" class="col s12 m12 l12">
+				<div id="detail-remocon" class="card">
+					<div class="card-content" id="card-content-current-quiz"
+						style="padding: 5px 0 0 0;">
+						<div class="row" style="margin-bottom:10px;">
+							<div class="col s3 m3 l3">
+								<div class="center-align">정답확인</div>
+							</div>
+							<div class="col s3 m3 l3">
+								<div class="center-align">통계보기</div>
+							</div>
+							<div class="col s3 m3 l3">
+								<div id="text_video" class="center-align">동영상</div>
+							</div>
+							<div class="col s3 m3 l3">
+								<div id="text_video" class="center-align">전체화면</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col s3 m3 l3">
+								<div class="center-align">
+									<div
+										class="btn-floating btn-large waves-effect waves-light  grey darken-1  center-align"
+										id="btn-correct-answer">
+										<i class="material-icons" id="video-icon">check</i>
+									</div>
+								</div>
+							</div>
+
+							<div class="col s3 m3 l3">
+								<div class="center-align">
+									<div
+										class="btn-floating btn-large waves-effect waves-light  grey darken-1  center-align"
+										id="btn-show-statics">
+										<i class="material-icons" id="video-icon">sort</i>
+									</div>
+								</div>
+							</div>
+							<div class="col s3 m3 l3">
+								<div class="center-align">
+									<div
+										class="btn-floating btn-large waves-effect waves-light grey darken-1 center-align"
+										id="btn-video-player" isplaying="0">
+										<i class="material-icons" id="video-icon">play_arrow</i>
+									</div>
+								</div>
+							</div>
+							<div class="col s3 m3 l3">
+								<div class="center-align">
+									<div
+										class="btn-floating btn-large waves-effect waves-light  grey darken-1  center-align"
+										id="btn-full-screen">
+										<i class="material-icons" id="full-screen-icon">fullscreen</i>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row valign-wrapper" style="margin-top: 0;">
+
+
+			<div class="col s12 center-align" >
+				<p style="margin:0px;">
+					<a id="btn_start_stop" class="waves-effect waves-light  btn">퀴즈 시작</a>
+				</p>
+			</div>
+
+		</div>
+
+	</footer>
+	<!-- END FOOTER -->
+
+
+	<script type="text/javascript"	src="../../common/vendors/jquery-3.2.1.min.js"></script>
+	<!--materialize js-->
+	<script type="text/javascript" src="../../common/js/materialize.min.js"></script>
+	<!--scrollbar-->
+	<script type="text/javascript"	src="../../common/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script type="text/javascript"	src="../../common/vendors/jsrender/jsrender.min.js"></script>
+	<script type="text/javascript" src="../../common/js/scripts/css-animation.js"></script>
+	<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+	<script type="text/javascript" src="../../common/js/plugins.js"></script>
+
+	<!-- <script type="text/javascript" src="../../js/scripts/advance-ui-carousel.js"></script> -->
+	<!--custom-script.js - Add your own theme custom JS-->
+	<script type="text/javascript" src="../../common/js/custom-script.js"></script>
+
+
+
+
+	<script type="text/javascript" src="../../INSIGHT/firebase.js"></script>
+ <script type="text/javascript" src="../../INSIGHT/INSIGHT-firebaseUtil_v2.js"></script>
+  <script type="text/javascript" src="../js/QIZ3000.js"></script>
+
+</body>
+
+</HTML>

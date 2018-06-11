@@ -1,0 +1,95 @@
+/*================================================================================
+	Item Name: Materialize - Material Design Admin Template
+	Version: 4.0
+	Author: PIXINVENT
+	Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+.main_no_padding_left {
+	padding-left: 0px !important;
+}
+
+.nav_padding_5px {
+	padding: 5px !important;
+}
+
+ul.side-nav.leftside-navigation li:not(.no-padding) a {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.input-field label {
+    font-weight: 1000;
+    color: #000000;
+    font-size: 1.3rem;
+}
+    
+textarea.materialize-textarea {
+    padding: .8rem 0 0.8rem 0;
+}
+ 
+.makeActive {
+    transform: translateY(-2px) scale(0.8) !important;
+}
+
+.jq-ry-container {
+    cursor: none !important;    
+}
+
+.fc-event {
+	font-size: 0.73rem !important;
+}
+
+.lgn_layout_1 {
+    display: table;
+    margin: auto;
+    height: 100%;
+}
+
+.lgn_layout_2 {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+
+#profile-card .card-profile-image {
+    height: 80px !important;
+    width: 80px !important;
+}
+
+.yellow {
+	background-color: #afb42b;
+}
+
+.green {
+	background-color: #66bb6a;
+}
+
+.blue {
+	background-color: #42a5f5;
+}
+
+.red {
+	background-color: #ef5350;
+}
+
+.yellow_font {
+	color: #afb42b;
+}
+
+.green_font {
+	color: #66bb6a;
+}
+
+.blue_font {
+	color: #42a5f5;
+}
+
+.red_font {
+	color: #ef5350;
+}

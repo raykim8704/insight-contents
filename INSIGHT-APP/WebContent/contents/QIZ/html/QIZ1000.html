@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="icon" href="../../common/images/favicon/favicon-32x32.png"
+	sizes="32x32">
+<!-- Favicons-->
+<link rel="apple-touch-icon-precomposed"
+	href="../../common/images/favicon/apple-touch-icon-152x152.png">
+<!-- For iPhone -->
+<meta name="msapplication-TileColor" content="#00bcd4">
+<meta name="msapplication-TileImage"
+	content="images/favicon/mstile-144x144.png">
+<!-- For Windows Phone -->
+<!-- CORE CSS-->
+<link href="../../common/css/materialize.css" type="text/css"
+	rel="stylesheet">
+<link href="../../common/css/style.css" type="text/css" rel="stylesheet">
+<!-- Custome CSS-->
+<link href="../../common/css/custom.css" type="text/css"
+	rel="stylesheet">
+<!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+<link href="../../common/vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+<link href="../../common/vendors/jvectormap/jquery-jvectormap.css" type="text/css" rel="stylesheet">
+<link href="../../common/vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+<link href="../css/QIZ1000.css" type="text/css" rel="stylesheet">
+<link href="../../common/vendors/sweetalert/dist/sweetalert.css" type="text/css" rel="stylesheet">
+
+<script type="text/javascript" src="../../common/vendors/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="../../LEMP/LEMP.js"></script>
+<script type="text/javascript" src="../../LEMP/common/js/common.js" defer></script>
+<script type="text/javascript" src="../../INSIGHT/INSIGHT.js"></script>
+<script type="text/javascript" src="../js/QIZ1000.js"></script>
+	<script type="text/javascript" src="../../INSIGHT/firebase.js"></script>
+  <script type="text/javascript" src="../../INSIGHT/INSIGHT-firebaseUtil_v2.js"></script>
+<!--
+	<script type="text/javascript" src="../../INSIGHT/firebase.js"></script>
+  <script type="text/javascript" src="../../INSIGHT/INSIGHT-firebaseUtil.js"></script> -->
+
+
+<!-- 	<link rel="stylesheet" type="text/css" href="../../LEMP/common/css/common.css">
+	<link rel="stylesheet" type="text/css" href="../css/DIT1000.css"> -->
+
+
+<title>INSIGHT</title>
+</head>
+
+<body class="white">
+		<div class="loader-section section-right"></div>
+	</div>
+	<!-- End Page Loading -->
+	<div id="header"></div>
+
+	<!--  START MAIN -->
+	<div class="main_no_padding_left" id="main">
+<!-- 		<video autoplay loop id="video-background" muted plays-inline
+			style="position: fixed; left: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -100;">
+			<source src="../video/backgroundvideo3.mp4" type="video/mp4">
+		</video> -->
+		<div class="wrapper">
+			<div id="sideNav"></div>
+			<div class="container">
+				<div class="section">
+
+					<div class="row">
+						<div class="col s12 m14">
+							<div class="card">
+
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12 m4">
+							<h4 class="center-align white-text blinking">Quiz가 곧 시작 됩니다</h4>
+						</div>
+						<div class="col s12 m4  center-align" style="width:100%;height:80px;"></div>
+
+						<div class="col s12 m4  center-align">
+								<div class="preloader-wrapper big active center-align">
+    <div class="spinner-layer" style="border-color:#FFFFFF;">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+						</div>
+
+					</div>
+
+					<!--
+
+				-->
+
+
+					</div>
+					<!-- Modal Structure -->
+					<div id="fourButton" class="modal bottom-sheet" style="max-height:60%;">
+					<div id='fourContents' class="modal-content">병래가 가장 좋아하는 음식은 ?</div>
+						<div class="modal-content">
+							<div class="row"><a id="btn_1" class="waves-effect waves-light  btn" style="width:100%;">1.평양냉면   </a></div>
+							<div class="row"><a id="btn_2" class="waves-effect waves-light  btn" style="width:100%;">2. 비빔밥  </a></div>
+							<div class="row"><a id="btn_3" class="waves-effect waves-light  btn" style="width:100%;">3. 볶음밥   </a></div>
+							<div class="row"><a id="btn_4" class="waves-effect waves-light  btn" style="width:100%;">4. 순대국  </a></div>
+						</div>
+					</div>
+					<!-- Modal Structure ended -->
+
+									<!-- Modal Structure -->
+					<div id="oxButton" class="modal bottom-sheet" style="max-height:60%;">
+					<div id='oxContents' class="modal-content">고민수는 벌크업 중이다 </div>
+						<div class="modal-content">
+							<div class="row">
+								<div class="col s6 m6 center">
+									<a id="btn_o_background" class="btn-floating btn-large waves-effect waves-light" style="width:90px; height:90px;">
+										<i id="btn_o" class="material-icons" style="line-height:90px; font-size:2rem;">radio_button_unchecked</i>
+									</a>
+								</div>
+								<div class="col s6 m6 center">
+									<a id="btn_x_background" class="btn-floating btn-large waves-effect waves-light" style="width:90px; height:90px;">
+										<i id="btn_x" class="material-icons" style="line-height:90px; font-size:2rem;">clear</i>
+									</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- Modal Structure ended -->
+					<!-- Modal Structure -->
+					<div id="openEndedButton" class="modal bottom-sheet" style="max-height:60%;">
+					<div id='openEndedContents' class="modal-content">김필영의 매력포인트는?  </div>
+						<div class="modal-content">
+							<input id ="answer_open_ended" type="text" name="Search" class="header-search-input z-depth-2" placeholder="정답을 입력해주세요">
+						</div>
+						<div class="modal-footer">
+							<div id="btn_open_ended" class="waves-effect waves-green btn-flat">정답입력</div>
+						</div>
+					</div>
+					<!-- Modal Structure ended -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!--materialize js-->
+	<script type="text/javascript" src="../../common/js/materialize.min.js"></script>
+	<!--scrollbar-->
+	<script type="text/javascript"	src="../../common/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script type="text/javascript"	src="../../common/vendors/jsrender/jsrender.min.js"></script>
+	<!-- <script src="../../common/vendors/select2/select2.min.js"></script> -->
+	<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+	<script type="text/javascript" src="../../common/js/plugins.js"></script>
+
+	<!-- <script type="text/javascript" src="../../js/scripts/advance-ui-carousel.js"></script> -->
+	<!--custom-script.js - Add your own theme custom JS-->
+	<script type="text/javascript" src="../../common/js/custom-script.js"></script>
+
+</body>
+
+</HTML>
