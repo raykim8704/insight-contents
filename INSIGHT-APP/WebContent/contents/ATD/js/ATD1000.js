@@ -155,16 +155,13 @@ var checkTodayAttend = function ( attendList ) {
 	attendList = INSIGHT.REST.getAttendList( token, eventDetail.id, eventDetail.classes[ 0 ].id );
 	var isChecked = false;
 	console.log( 'attendList' );
-	console.log( attendList );
 	// need parsing date to Insight Date Type
 	if ( attendList.customStatus == "success" ) {
 		// console.log(date);
 		// console.log(attendList[0].inDate);
 		var dateList = attendList.map( function ( attendItem ) {
-			console.log( attendItem.date );
 			var tempDate = attendItem.date.split( '-' );
 			var parsedDate = tempDate[ 1 ] + '/' + tempDate[ 2 ] + '/' + tempDate[ 0 ];
-			console.log( parsedDate );
 			return parsedDate;
 		} );
 		if ( dateList ) {
@@ -173,13 +170,10 @@ var checkTodayAttend = function ( attendList ) {
 				return element == date;
 			}
 			var index = dateList.findIndex( isToday );
-			console.log( index );
 
 			if ( index >= 0 ) {
-				console.log( attendList[ index ].inState );
 				var inState = attendList[ index ].inState;
 				var outState = attendList[ index ].outState;
-				console.log( 'in & out State : ' + inState + outState );
 
 				if ( inState == 0 ) {
 					//출석해야함
@@ -223,14 +217,11 @@ var renderAttendHistory = function ( attendList ) {
 	// need API
 	var today = new Date();
 
-	console.log( today );
 
 	//	var attendHistoryList = attendListDummy;
 	if ( attendList.customStatus == "success" ) {
 		var attendHistoryList = attendList.map( function ( attendItem ) {
-			console.log( attendItem.date );
 			var tempDate2 = attendItem.date.split( '-' );
-			console.log( tempDate2[ 0 ] + '/ ' + tempDate2[ 1 ] + '/ ' + tempDate2[ 2 ] );
 			var parsedDate = new Date( tempDate2[ 0 ], tempDate2[ 1 ] - 1, tempDate2[ 2 ] );
 			var parsedAttednInfo = {
 				date: parsedDate,
@@ -239,7 +230,6 @@ var renderAttendHistory = function ( attendList ) {
 				inState: attendItem.inState,
 				inDate: attendItem.inDate,
 			}
-			console.log( parsedAttednInfo );
 			return parsedAttednInfo;
 		} );
 
@@ -249,11 +239,8 @@ var renderAttendHistory = function ( attendList ) {
 		$( '.list-attend-history' ).children( 'li' ).remove( '.collection-item' );
 
 		jQuery.each( attendHistoryList, function ( index, historyVal ) {
-			console.log( historyVal );
-			console.log( historyVal.outDate );
 
 			var resultState = historyVal.inState;
-			console.log( historyVal.inState );
 			if ( historyVal.date <= today ) {
 				switch ( historyVal.inState ) {
 					case 0:
@@ -390,15 +377,12 @@ function showAttendResult(attendResult){
 				swal( "늦으셨네요!", "출석체크 시간을 초과했습니다.", "error" );
 				break;
 			case 1:
-				console.log( '지각 ' );
 				swal( "Good job!", "조금 늦으셨네요.", "success" );
 				break;
 			case 2:
-				console.log( '정상출석!' );
 				swal( "Good job!", "출석체크가 완료되었습니다.", "success" );
 				break;
 			case 3:
-				console.log( '정상출석!' );
 				swal( "Good job!", "수료하기가 완료되었습니다.", "success" );
 				break;
 			case 300:
@@ -414,7 +398,6 @@ function showAttendResult(attendResult){
 				swal( "행사기간이 아닙니다.", "행사 기간내에 출석해 주세요.", "warning" );
 				break;
 			case 304:
-				console.log( '정상출석!' );
 				swal( "Good job!", "이미 출석체크 되었습니다.", "success" );
 				break;
 			case 305:

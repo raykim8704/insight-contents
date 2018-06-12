@@ -26,6 +26,7 @@ INSIGHT.serviceURL = 'http://13.124.83.168:8080/v2/';
 
 
 $.ajaxSettings.contentType = "application/json";
+$.ajaxSettings.timeout = 5000;
 
 
 /**
@@ -538,6 +539,7 @@ function _get( url, token ) {
 		url: url,
 		type: "GET",
 		async: false,
+		timeout:8000,
 		contentType: "application/json",
 		headers: {
 			"x-auth-token": token
@@ -561,6 +563,7 @@ function _post( url, token, data ) {
 		url: url,
 		type: "POST",
 		async: false,
+		timeout:8000,
 		data: JSON.stringify( data ),
 		contentType: "application/json",
 		headers: {

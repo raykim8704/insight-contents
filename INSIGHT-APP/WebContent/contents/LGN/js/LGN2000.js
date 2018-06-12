@@ -27,7 +27,7 @@ var page = {
 		} );
 
 		$( '#btn-cancel' ).click( function () {
-			LEMP.Window.open( {
+			LEMP.Window.replace( {
 				"_sPagePath": "LGN/html/LGN1000.html"
 			} );
 		} );

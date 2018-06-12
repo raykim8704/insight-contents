@@ -30,7 +30,10 @@ function makeNavBar() {
 	} )
 	var userID = LEMP.Properties.get({
 		"_sKey": "userID"
-	})
+	});
+	
+	auth == 'STUDENT' ? $('#menu-survey-li').show() : $('#menu-survey-li').hide();
+	
 
 	$( '#menu-event-title' ).text( title );
 	$( '#menu-current-user').text( "ID : " + userID );
@@ -204,51 +207,65 @@ function setSettings( token ) {
 	//	$("#pushSwitch").prop("checked", boolPushYn);
 
 	$( "#button_logout" ).click( function () {
-
-		var result = true;
-
-		LEMP.EDUApp.stopLomeoPush( {
-			"_fCallback": function ( res ) {}
-		} );
-
-		var uuid;
-		LEMP.EDUApp.getLomeoUuid( {
-			"_fCallback": function ( res ) {
-				var logoutResult;
-				if ( res.result === "true" || res.result === true ) {
-					var uuid = res.uuid;
-					logoutResult = INSIGHT.REST.logoutService( token, uuid );
-				} else {
-					logoutResult = INSIGHT.REST.logoutService( token );
-				}
-
-				if ( logoutResult.customStatus === 'failed' ) {
-					LEMP.EDUApp.showProgressBar( false );
-					LEMP.EDUApp.errorService( eventDetail, "로그아웃하기" );
-				}
-
-				LEMP.Properties.remove( {
-					"_sKey": "token"
-				} );
-				LEMP.Properties.remove( {
-					"_sKey": "autoLoginState"
-				} );
-				LEMP.Properties.remove( {
-					"_sKey": "userID"
-				} );
-				LEMP.Properties.remove( {
-					"_sKey": "userPw"
-				} );
-				LEMP.Properties.remove( {
-					"_sKey": "loginBefore"
+		swal( {
+			title: "Logout",
+			text: "로그아웃하고 로그인페이지로 이동합니다.",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "네, 로그아웃 합니다. ",
+			cancelButtonText: "아니요",
+			closeOnConfirm: false,
+			closeOnCancel: false
+		},
+		function ( isConfirm ) {
+			if ( isConfirm ) {
+				var result = true;
+				LEMP.EDUApp.stopLomeoPush( {
+					"_fCallback": function ( res ) {}
 				} );
 
-				LEMP.Window.replace( {
-					"_sPagePath": "LGN/html/LGN1000.html"
+				var uuid;
+				LEMP.EDUApp.getLomeoUuid( {
+					"_fCallback": function ( res ) {
+						var logoutResult;
+						if ( res.result === "true" || res.result === true ) {
+							var uuid = res.uuid;
+							logoutResult = INSIGHT.REST.logoutService( token, uuid );
+						} else {
+							logoutResult = INSIGHT.REST.logoutService( token );
+						}
+
+						if ( logoutResult.customStatus === 'failed' ) {
+							LEMP.EDUApp.showProgressBar( false );
+							LEMP.EDUApp.errorService( eventDetail, "로그아웃하기" );
+						}
+
+						LEMP.Properties.remove( {
+							"_sKey": "token"
+						} );
+						LEMP.Properties.remove( {
+							"_sKey": "autoLoginState"
+						} );
+						LEMP.Properties.remove( {
+							"_sKey": "userID"
+						} );
+						LEMP.Properties.remove( {
+							"_sKey": "userPw"
+						} );
+
+
+
+						LEMP.Window.replace( {
+							"_sPagePath": "LGN/html/LGN1000.html"
+						} );
+					}
 				} );
+				// result = INSIGHT.REST.logoutService(tokenID);
+			} else {
+				swal.close();
 			}
 		} );
-		// result = INSIGHT.REST.logoutService(tokenID);
 
 	} );
 

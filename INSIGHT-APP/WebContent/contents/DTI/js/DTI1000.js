@@ -100,6 +100,7 @@ var page = {
 			"_sKey": "authority"
 		} );
 		eventDetail = INSIGHT.REST.getEventDetail( token, eventID );
+		console.log(eventDetail);
 
 
 
@@ -119,16 +120,19 @@ var page = {
 
 		if ( eventDetail.code == 200 ) {
 			console.log( 'in' )
-			eventDetail = eventDetail.data;
+			agendaDetailil = eventDetail.data;
 
-			attendStartTime = eventDetail.checkStartTime;
-			attendEndTime = eventDetail.checkEndTime;
-			locationXY = eventDetail.locationXY.split( "," );
-			meterials = eventDetail.information;
+			attendStartTime = eventDetail.data.checkStartTime;
+			attendEndTime = eventDetail.data.checkEndTime;
+			locationXY = eventDetail.data.locationXY.split( "," );
+			meterials = eventDetail.data.information;
 			LEMP.EDUApp.showProgressBar( false );
-			var sliderIndex = page.renderEventDetailInformation();
-
-			$( '.carousel' ).carousel( 'next', sliderIndex );
+			
+			
+			authority == 'STUDENT' ? 
+			$( '.carousel' ).carousel( 'next', 	page.renderEventDetailInformation(eventDetail.data) )  :
+			$('#slide-card').hide()
+				
 		} else {
 			LEMP.EDUApp.errorService( eventDetail, "과정 상세 보기" );
 		}
@@ -136,17 +140,21 @@ var page = {
 
 
 	},
-	renderEventDetailInformation: function () {
+	renderEventDetailInformation: function (agendaDetail) {
 
+		console.log(agendaDetail.agendaList);
+		
+		if ( agendaDetail.agendaList == null || agendaDetail.agendaList.length > 0 ) { 
+		
 		// 화면에 보여질 날짜 형식 가공 : From originDate To date
-		var originStartDate = INSIGHT.Model.dateConversionService( eventDetail.startDate );
-		var originEndDate = INSIGHT.Model.dateConversionService( eventDetail.endDate );
+		var originStartDate = INSIGHT.Model.dateConversionService( agendaDetail.startDate );
+		var originEndDate = INSIGHT.Model.dateConversionService( agendaDetail.endDate );
 		var startDate = originStartDate[ 0 ] + "년 " + originStartDate[ 1 ] + "월 " + originStartDate[ 2 ] + "일(" + originStartDate[ 4 ] + ")";
 		var endDate = originEndDate[ 0 ] + "년 " + originEndDate[ 1 ] + "월 " + originEndDate[ 2 ] + "일(" + originEndDate[ 4 ] + ")";
 		// 행사 이미지 없을 경우 디폴트 이미지를 보여줍니다.
-		if ( eventDetail.image != null ) {
+		if ( agendaDetail.image != null ) {
 			$( '#event-detail-img' ).append( $( '<img/>', {
-				src: INSIGHT.serviceURL + "file/" + eventDetail.image.fileHash + "/" + eventDetail.image.fileName
+				src: INSIGHT.serviceURL + "file/" + agendaDetail.image.fileHash + "/" + agendaDetail.image.fileName
 			} ) );
 		} else {
 			$( '#event-detail-img' ).append( $( '<img/>', {
@@ -154,13 +162,13 @@ var page = {
 			} ) );
 		}
 
-		$( '#text-event-title' ).text( eventDetail.title );
+		$( '#text-event-title' ).text( agendaDetail.title );
 
-		$( '#card-detail-main-content' ).append( '<p>' + eventDetail.description + '</p>' );
+		$( '#card-detail-main-content' ).append( '<p>' + agendaDetail.description + '</p>' );
 		$( '#card-detail-main-content' ).append( '<p>' + startDate + " - " + endDate + '</p>' );
 
-		$( '#text-location' ).text( eventDetail.location );
-		$( '#text-location-detail' ).text( eventDetail.detailLocation );
+		$( '#text-location' ).text( agendaDetail.location );
+		$( '#text-location-detail' ).text( agendaDetail.detailLocation );
 
 
 		var locationX = parseFloat( locationXY[ 0 ] );
@@ -183,14 +191,16 @@ var page = {
 		console.log( _sToday );
 		var sliderIndex = 0;
 
-		console.log( today )
+		console.log( today );
+		
+		
 		$( '#slide-section' ).append( $( '<div/>', {
 			class: 'carousel carousel-slider center',
 			'data-indicators': 'true',
 			id: 'agenda-slider'
 		} ) );
 
-		jQuery.each( eventDetail.agendaList, function ( index, value ) {
+		jQuery.each( agendaDetail.agendaList, function ( index, value ) {
 
 			if ( value.date == _sToday ) sliderIndex = index;
 
@@ -255,6 +265,11 @@ var page = {
 		$( '.carousel.carousel-slider' ).carousel( {
 			fullWidth: true
 		} );
+		
+		}
+		else{
+			$('#slide-card').hide();
+		}
 
 		return sliderIndex;
 	}

@@ -39,21 +39,27 @@ var page = {
 			} );
 
 			var autoLoginResult = INSIGHT.REST.loginService( userId, userPw );
-
+			console.log(autoLoginResult);
 			if ( autoLoginResult.customStatus === "success" ) {
-				//set login info
-				page.setLoginInfo( autoLoginResult, userPw, value );
+				if(autoLoginResult.pwChangeReq!=1){
+					//set login info
+					page.setLoginInfo( autoLoginResult, userPw, value );
 
-				LEMP.Window.open( {
-					"_sPagePath": "MAN/html/MAN1000.html"
-				} );
+					LEMP.Window.open( {
+						"_sPagePath": "MAN/html/MAN1000.html"
+					} );
+				}
+
 			} else {
 				LEMP.Properties.set( {
 					_sKey: "autoLoginState",
 					_vValue: false
 				} );
-				alertReasonForeLoginFailure( autologinResult.status,
-					autologinResult.responseJSON );
+				
+
+				
+//				alertReasonForeLoginFailure( autologinResult.status,
+//					autologinResult.responseJSON );
 			}
 		}
 	},
