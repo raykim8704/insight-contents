@@ -129,9 +129,9 @@ var page = {
 			LEMP.EDUApp.showProgressBar( false );
 			
 			
-			authority == 'STUDENT' ? 
-			$( '.carousel' ).carousel( 'next', 	page.renderEventDetailInformation(eventDetail.data) )  :
-			$('#slide-card').hide()
+//			authority == 'STUDENT' ? 
+			$( '.carousel' ).carousel( 'next', 	page.renderEventDetailInformation(eventDetail.data) )  
+//			$('#slide-card').hide()
 				
 		} else {
 			LEMP.EDUApp.errorService( eventDetail, "과정 상세 보기" );
@@ -144,7 +144,7 @@ var page = {
 
 		console.log(agendaDetail.agendaList);
 		
-		if ( agendaDetail.agendaList == null || agendaDetail.agendaList.length > 0 ) { 
+		
 		
 		// 화면에 보여질 날짜 형식 가공 : From originDate To date
 		var originStartDate = INSIGHT.Model.dateConversionService( agendaDetail.startDate );
@@ -193,19 +193,21 @@ var page = {
 
 		console.log( today );
 		
-		
+		if(authority =='STUDENT') { 
+			if ( agendaDetail.agendaList != null || agendaDetail.agendaList.length > 0 ) { 
 		$( '#slide-section' ).append( $( '<div/>', {
 			class: 'carousel carousel-slider center',
 			'data-indicators': 'true',
 			id: 'agenda-slider'
 		} ) );
 
+		
 		jQuery.each( agendaDetail.agendaList, function ( index, value ) {
 
 			if ( value.date == _sToday ) sliderIndex = index;
 
 			$( '#agenda-slider' ).append( $( '<div/>', {
-				//class : 'carousel-item '+colorArray[index%4]+' white-text',
+				// class : 'carousel-item '+colorArray[index%4]+' white-text',
 				class: 'carousel-item grey lighten-4 white-text',
 				id: 'carousel-item-' + index
 			} ) );
@@ -266,6 +268,10 @@ var page = {
 			fullWidth: true
 		} );
 		
+		}
+			else{
+				$('#slide-card').hide();
+			}
 		}
 		else{
 			$('#slide-card').hide();

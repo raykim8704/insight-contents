@@ -111,8 +111,8 @@ var page = {
 							LEMP.EDUApp.startLomeoPush( {
 								"_scustno": unum,
 								"_sagentid": "insight",
-								"_sserverurl": "http://210.93.181.227:8080/apis/",
-								//"_sserverurl": "https://papi.bizlotte.com:8080/apis/",
+//								"_sserverurl": "http://210.93.181.227:8080/apis/",
+								"_sserverurl": "https://papi.bizlotte.com:8080/apis/",
 								"_spackagename": "net.ldcc.insight",
 								"_fCallback": function ( res ) {
 									LEMP.EDUApp.getLomeoUuid( {

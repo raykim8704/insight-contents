@@ -98,7 +98,11 @@ var renderQuestionList = function ( eventID, refresh = false ) {
 	if ( maxPage == null || pageCount <= maxPage ) {
 		var questionList = INSIGHT.REST.getQuestionList( token, eventID, classNum, pageCount );
 		console.log( _arrQuestions.length );
-		_arrQuestions = ( _arrQuestions.length > 0 ) ? _arrQuestions.concat( questionList.data.array ) : questionList.data.array;
+		 ( _arrQuestions.length > 0 ) ? 
+				 _arrQuestions = _arrQuestions.concat( questionList.data.array ) : (
+				 _arrQuestions = questionList.data.array,
+				 renderEmptyList('#card-section')
+					);
 		console.log( _arrQuestions );
 		var totalCount = questionList.data.totalCount;
 		maxPage = Math.ceil( totalCount / 10 );
@@ -107,6 +111,8 @@ var renderQuestionList = function ( eventID, refresh = false ) {
 
 		if ( questionList.code == 200 && questionList.data.totalCount > 0 ) {
 
+			$('#card-section').empty();
+			
 			jQuery.each( questionList.data.array, function ( index, value ) {
 				index = index + ( 10 * ( pageCount - 1 ) );
 
@@ -267,6 +273,35 @@ var renderQuestionList = function ( eventID, refresh = false ) {
 	} else {
 
 	}
+
+}
+
+function renderEmptyList(target) {
+
+	$( target ).empty();
+	$( target ).append( $( '<div/>', {
+		class: 'card',
+		id: 'empty-card'
+	} ) );
+	$( '#empty-card' ).append( $( '<div/>', {
+		class: 'card-content center-align',
+		id: 'empty-card-content'
+	} ) );
+	$( '#empty-card-content' ).append( $( '<i/>', {
+		class: 'material-icons  light-green-text text-lighten-2',
+		id: 'outline',
+		text: 'tag_faces'
+	} ) );
+	$( '#empty-card' ).append( $( '<div/>', {
+		class: 'center-align',
+		id: 'empty-text'
+	} ) );
+	$( '#empty-text' ).append( $( '<p/>', {
+		text: '- 가장먼저 질문을 남겨보세요 -'
+	} ) );
+	$( '#outline' ).css( {
+		'font-size': '60px'
+	} )
 
 }
 

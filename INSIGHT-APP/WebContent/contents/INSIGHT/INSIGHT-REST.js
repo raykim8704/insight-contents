@@ -21,8 +21,8 @@ INSIGHT.REST = new Object();
  *              <br> - 운영 서버 주소 : <strong>https://insight.lotte.net/m/</strong>
  */
 
-INSIGHT.serviceURL = 'http://13.124.83.168:8080/v2/';
-//INSIGHT.serviceURL = 'https://insight.lotte.net/m/';
+//INSIGHT.serviceURL = 'http://13.124.83.168:8080/v2/';
+INSIGHT.serviceURL = 'https://insight.lotte.net/m2/';
 
 
 $.ajaxSettings.contentType = "application/json";
@@ -57,7 +57,8 @@ INSIGHT.REST.loginService = function ( id, password, uuid ) {
 	var url = INSIGHT.serviceURL + "user/login"; //서비스 요청 주소
 	var data = { //서비스 이용에 필요한 정보
 		username: id,
-		password: password
+		password: password,
+		logintype : "mobile"
 	};
 	var token = null;
 
