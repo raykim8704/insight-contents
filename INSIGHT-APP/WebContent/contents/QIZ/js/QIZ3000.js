@@ -17,12 +17,14 @@ var page = {
 	 * 안드로이드에서 back 버튼을 눌렀을 경우, 행사 정보로 돌아갑니다.
 	 */
 	callbackBackButton: function () {
+		INSIGHT.MC.remoteController.offEvent( eventid, classNum )
+		
 		LEMP.Window.replace( {
 			"_sPagePath": "DTI/html/DTI1000.html",
 			"_oMessage": {
 				"evnum": eventid
 			}
-		} );
+		} )
 	},
 	init: function ( quizInfo ) {
 		page.initLayout( quizInfo.data )
@@ -145,6 +147,10 @@ var page = {
 		} )
 	},
 	initInterface: function () {
+		$( '#menu-eventdetail, #menu-attend,#menu-quiz,#menu-survey-li,#menu-board,#menu-qna,#menu-reference,#menu-eventlist,#button_logout' ).click( function ( ) {
+			INSIGHT.MC.remoteController.offEvent( eventid, classNum )
+		})
+		
 		$( '#btn-cancle' ).click( function () {
 			INSIGHT.MC.remoteController.offEvent( eventid, classNum );
 
@@ -154,7 +160,7 @@ var page = {
 					"evnum": eventid,
 					"classNum": classNum
 				}
-			} );
+			} )
 		} )
 
 		$( '#btn-correct-answer' ).click( function () {
