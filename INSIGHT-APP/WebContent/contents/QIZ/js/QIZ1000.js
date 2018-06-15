@@ -104,6 +104,7 @@ function initControl() {
 				} )
 			} )
 	} )
+	initControl = null;
 }
 
 function revealBtn( fbDB, insightQuizInfo ) {
@@ -152,7 +153,7 @@ function hideBtn() {
 }
 
 function addOXbuttonClickEvent( qGroup, qNumber ) {
-	$( '#btn_o, #btn_x' ).click( function ( e ) {
+	$( '#btn_o, #btn_x' ).unbind("click").bind("click", function ( e ) {
 		var submitResult = INSIGHT.REST.submitQuizAnswer( eventID, qGroup, qNumber, ( e.target.id === 'btn_o' ) ? [ 'O' ] : [ 'X' ] );
 		if ( submitResult.code == 200 ) {
 			$( '#btn_o, #btn_x' ).unbind();
@@ -173,7 +174,7 @@ function addOXbuttonClickEvent( qGroup, qNumber ) {
 }
 
 function addFourButtonClickEvent( qGroup, qNumber ) {
-	$( '#btn_1, #btn_2, #btn_3, #btn_4' ).click( function ( e ) {
+	$( '#btn_1, #btn_2, #btn_3, #btn_4' ).unbind("click").bind("click", function ( e ) {
 		var btnID = e.target.id
 		var submitResult = INSIGHT.REST.submitQuizAnswer( eventID, qGroup, qNumber, [ e.target.id.split( '_' )[ 1 ] ] );
 		if ( submitResult.code == 200 ) {
@@ -216,7 +217,7 @@ function addFourButtonClickEvent( qGroup, qNumber ) {
 }
 
 function addOpenEndedClickEvent( qGroup, qNumber ) {
-	$( '#btn_open_ended' ).click( function ( e ) {
+	$( '#btn_open_ended' ).unbind("click").bind("click", function ( e ) {
 		var submitResult = INSIGHT.REST.submitQuizAnswer( eventID, qGroup, qNumber, [ $( '#answer_open_ended' ).val() ] );
 		if ( submitResult.code == 200 ) {
 			$( '#answer_open_ended' ).prop( 'readonly', true );
