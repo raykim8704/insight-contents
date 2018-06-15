@@ -348,10 +348,10 @@ function askPushConfirm( token ) {
 			} else {
 				resPushRegist = INSIGHT.REST.setInsightPushAllowState( token, 0 );
 				console.log( resPushRegist );
-				( resPushRegist == 'deny' ) ?
-				( swal( "푸시알림 미동의", "미동의 처리 되었습니다", "warning" ),
+				( resPushRegist == 'deny' ) ?( 
+					swal( "푸시알림 미동의", "미동의 처리 되었습니다", "warning" ),
 					setPushSwitch( token ) ) :
-				swal( "Sorry!", "처리되지 못했습니다. 잠시후에 다시 시도해 주십시요.", "error" );
+					swal( "Sorry!", "처리되지 못했습니다. 잠시후에 다시 시도해 주십시요.", "error" );
 			}
 		} );
 
