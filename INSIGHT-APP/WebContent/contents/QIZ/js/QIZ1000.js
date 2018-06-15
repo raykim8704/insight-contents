@@ -161,8 +161,8 @@ function addOXbuttonClickEvent( qGroup, qNumber ) {
 				$( '#btn_o_background' ).addClass( 'gradient-45deg-orange-amber' )
 				$( '#btn_x_background' ).addClass( 'gradient-45deg-deep-purple-purple' )
 			} else {
-				$( '#btn_o_background' ).addClass( 'gradient-45deg-orange-amber' )
-				$( '#btn_x_background' ).addClass( 'gradient-45deg-deep-purple-purple' )
+				$( '#btn_o_background' ).addClass( 'gradient-45deg-deep-purple-purple' )
+				$( '#btn_x_background' ).addClass( 'gradient-45deg-orange-amber' )
 			}
 		} else if ( submitResult.code == 1000 ) {
 			$( '#btn_o, #btn_x' ).unbind();

@@ -221,7 +221,7 @@ var page = {
 			} ) )
 
 			$( '#carousel-item-' + index ).append( $( '<table/>', {
-				class: 'centered agenda-table grey lighten-1',
+				class: 'centered agenda-table grey lighten-1 ',
 				id: 'table-' + index
 			} ) );
 
@@ -239,17 +239,18 @@ var page = {
 					location = '-';
 				}
 
-				$( '#table-' + index ).append( '<tr><th class=\"white center-align\ " colspan=\'3\'><span class=\"white grey-text \">' + agendaValue.title + '</span></th></tr>' );
-				$( '#table-' + index ).append( $( '<tbody/>', {
-					id: 'tbody' + index + agendaIndex
-				} ) );
-				$( '#tbody' + index + agendaIndex ).append( '<tr><td>시작</td><td>종료</td><td>장소</td></tr>' );
-				$( '#tbody' + index + agendaIndex ).append( '<tr><td>' + startTime + '</td><td>' + endTime + '</td><td>' + location + '</td></tr>' );
+				$( '#table-' + index ).append( '<tr><td class=\"white center-align\ " colspan=\'3\'><span class=\"white grey-text \">' + agendaValue.title + '</span></td></tr>' );
+//				$( '#table-' + index ).append( $( '<tbody/>', {
+//					id: 'tbody' + index + agendaIndex
+//				} ) );
+				$( '#table-' + index).append( '<tr><td class=\"center-align\" >시작</td><td class=\"center-align\">종료</td><td class=\"center-align\">장소</td></tr>' );
+				$( '#table-' + index).append( '<tr><td class=\"center-align\">' + startTime + '</td><td class=\"center-align\">' + endTime + '</td><td class=\"center-align\">' + location + '</td></tr>' );
 			} );
 		} );
 		agendaHeight = agendaHeight * 160;
 		agendaHeight = agendaHeight + 'px';
 
+		
 		$( '.carousel' ).css( {
 			'height': agendaHeight
 		} );
