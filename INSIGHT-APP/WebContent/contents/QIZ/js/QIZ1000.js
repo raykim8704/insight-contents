@@ -115,13 +115,13 @@ function revealBtn( fbDB, insightQuizInfo ) {
 	if ( realInfo == null ) {
 
 	} else if ( realInfo.type === 2 ) {
-		$( '#btn_o_background, #btn_x_background' ).removeClass( 'gradient-45deg-orange-amber gradient-45deg-deep-purple-purple gradient-45deg-brown-brown' )
+		$( '#btn_o_background, #btn_x_background' ).removeClass( 'amber cyan lighten-5 grey lighten-2' )
 		$( '#oxButton' ).modal( 'open' )
 		$( '#oxContents' ).text( realInfo.title )
 		addOXbuttonClickEvent( realInfo.quizzesId, realInfo.id )
 
 	} else if ( realInfo.type === 4 ) {
-		$( '#btn_1, #btn_2, #btn_3, #btn_4' ).removeClass( 'gradient-45deg-orange-amber gradient-45deg-deep-purple-purple gradient-45deg-brown-brown' )
+		$( '#btn_1, #btn_2, #btn_3, #btn_4' ).removeClass( 'amber cyan lighten-5 grey lighten-2' )
 		$( '#fourButton' ).modal( 'open' )
 		$( '#fourContents' ).text( realInfo.title )
 		$( '#btn_1' ).text( realInfo.example[ 0 ].content )
@@ -158,16 +158,16 @@ function addOXbuttonClickEvent( qGroup, qNumber ) {
 		if ( submitResult.code == 200 ) {
 			$( '#btn_o, #btn_x' ).unbind();
             if ( e.target.id === 'btn_o' ) {
-				$( '#btn_o_background' ).addClass( 'gradient-45deg-orange-amber' )
-				$( '#btn_x_background' ).addClass( 'gradient-45deg-deep-purple-purple' )
+				$( '#btn_o_background' ).addClass( 'amber' )
+				$( '#btn_x_background' ).addClass( 'cyan lighten-5' )
 			} else {
-				$( '#btn_o_background' ).addClass( 'gradient-45deg-orange-amber' )
-				$( '#btn_x_background' ).addClass( 'gradient-45deg-deep-purple-purple' )
+				$( '#btn_o_background' ).addClass( 'cyan lighten-5' )
+				$( '#btn_x_background' ).addClass( 'amber' )
 			}
 		} else if ( submitResult.code == 1000 ) {
 			$( '#btn_o, #btn_x' ).unbind();
-			$( '#btn_o_background' ).addClass( 'gradient-45deg-brown-brown' )
-			$( '#btn_x_background' ).addClass( 'gradient-45deg-brown-brown' )
+			$( '#btn_o_background' ).addClass( 'grey lighten-2' )
+			$( '#btn_x_background' ).addClass( 'grey lighten-2' )
 			Materialize.toast( '이미 정답을 제출한 문제입니다.', 3000 )
 		}
 	} )
@@ -181,36 +181,36 @@ function addFourButtonClickEvent( qGroup, qNumber ) {
 			$( '#btn_1, #btn_2, #btn_3, #btn_4' ).unbind()
 			switch ( e.target.id ) {
 				case "btn_1":
-					$( '#btn_1' ).addClass( 'gradient-45deg-orange-amber' )
-					$( '#btn_2' ).addClass( 'gradient-45deg-deep-purple-purple' )
-					$( '#btn_3' ).addClass( 'gradient-45deg-deep-purple-purple' )
-					$( '#btn_4' ).addClass( 'gradient-45deg-deep-purple-purple' )
+					$( '#btn_1' ).addClass( 'amber' )
+					$( '#btn_2' ).addClass( 'cyan lighten-5' )
+					$( '#btn_3' ).addClass( 'cyan lighten-5' )
+					$( '#btn_4' ).addClass( 'cyan lighten-5' )
 					break;
 				case "btn_2":
-					$( '#btn_2' ).addClass( 'gradient-45deg-orange-amber' )
-					$( '#btn_1' ).addClass( 'gradient-45deg-deep-purple-purple' )
-					$( '#btn_3' ).addClass( 'gradient-45deg-deep-purple-purple' )
-					$( '#btn_4' ).addClass( 'gradient-45deg-deep-purple-purple' )
+					$( '#btn_2' ).addClass( 'amber' )
+					$( '#btn_1' ).addClass( 'cyan lighten-5' )
+					$( '#btn_3' ).addClass( 'cyan lighten-5' )
+					$( '#btn_4' ).addClass( 'cyan lighten-5' )
 					break;
 				case "btn_3":
-					$( '#btn_3' ).addClass( 'gradient-45deg-orange-amber' )
-					$( '#btn_1' ).addClass( 'gradient-45deg-deep-purple-purple' )
-					$( '#btn_2' ).addClass( 'gradient-45deg-deep-purple-purple' )
-					$( '#btn_4' ).addClass( 'gradient-45deg-deep-purple-purple' )
+					$( '#btn_3' ).addClass( 'amber' )
+					$( '#btn_1' ).addClass( 'cyan lighten-5' )
+					$( '#btn_2' ).addClass( 'cyan lighten-5' )
+					$( '#btn_4' ).addClass( 'cyan lighten-5' )
 					break;
 				case "btn_4":
-					$( '#btn_4' ).addClass( 'gradient-45deg-orange-amber' )
-					$( '#btn_1' ).addClass( 'gradient-45deg-deep-purple-purple' )
-					$( '#btn_2' ).addClass( 'gradient-45deg-deep-purple-purple' )
-					$( '#btn_3' ).addClass( 'gradient-45deg-deep-purple-purple' )
+					$( '#btn_4' ).addClass( 'amber' )
+					$( '#btn_1' ).addClass( 'cyan lighten-5' )
+					$( '#btn_2' ).addClass( 'cyan lighten-5' )
+					$( '#btn_3' ).addClass( 'cyan lighten-5' )
 					break;
 			}
 		} else if ( submitResult.code == 1000 ) {
 			$( '#btn_1, #btn_2, #btn_3, #btn_4' ).unbind()
-			$( '#btn_4' ).addClass( 'gradient-45deg-brown-brown' )
-			$( '#btn_1' ).addClass( 'gradient-45deg-brown-brown' )
-			$( '#btn_2' ).addClass( 'gradient-45deg-brown-brown' )
-			$( '#btn_3' ).addClass( 'gradient-45deg-brown-brown' )
+			$( '#btn_4' ).addClass( 'grey lighten-2' )
+			$( '#btn_1' ).addClass( 'grey lighten-2' )
+			$( '#btn_2' ).addClass( 'grey lighten-2' )
+			$( '#btn_3' ).addClass( 'grey lighten-2' )
 			Materialize.toast( '이미 정답을 제출한 문제입니다.', 3000 )
 		}
 	} )
