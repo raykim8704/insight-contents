@@ -157,7 +157,7 @@ function addOXbuttonClickEvent( qGroup, qNumber ) {
 		var submitResult = INSIGHT.REST.submitQuizAnswer( eventID, qGroup, qNumber, ( e.target.id === 'btn_o' ) ? [ 'O' ] : [ 'X' ] );
 		if ( submitResult.code == 200 ) {
 			$( '#btn_o, #btn_x' ).unbind();
-			if ( e.target.id === 'btn_o' ) {
+            if ( e.target.id === 'btn_o' ) {
 				$( '#btn_o_background' ).addClass( 'gradient-45deg-orange-amber' )
 				$( '#btn_x_background' ).addClass( 'gradient-45deg-deep-purple-purple' )
 			} else {
