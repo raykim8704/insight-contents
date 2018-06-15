@@ -54,7 +54,8 @@ var page = {
 					id: questions[ $( this )[ 0 ].id.split( "-" )[ 1 ] ].id,
 					type: questions[ $( this )[ 0 ].id.split( "-" )[ 1 ] ].type,
 					number: questions[ $( this )[ 0 ].id.split( "-" )[ 1 ] ].number,
-					title: questions[ $( this )[ 0 ].id.split( "-" )[ 1 ] ].title
+					title: questions[ $( this )[ 0 ].id.split( "-" )[ 1 ] ].title,
+					video : questions[ $( this )[ 0 ].id.split( "-" )[ 1 ] ].video==null ? 0 : 1
 				}
 				changeStartStopButton( false )
 				INSIGHT.MC.remoteController.stopQuiz( selectedQuiz.id, selectedQuiz.type )
@@ -87,6 +88,19 @@ var page = {
 					changeRankButton( false )
 					$( '#detail-remocon' ).empty()
 					$( '#detail-remocon' ).append( detailRemocon )
+					if(selectedQuiz.video==1){
+						$('#text_video').show()
+						$('#text_screen').show()
+						$('#btn-video-player').show()
+						$('#btn-full-screen').show()
+						$('.row .col.s3').css('width', '25%');
+					}else if(selectedQuiz.video==0){
+						$('#text_video').hide()
+						$('#text_screen').hide()
+						$('#btn-video-player').hide()
+						$('#btn-full-screen').hide()
+						$('.row .col.s3').css('width', '50%');
+					}
 
 					if ( remocon.answerState || remocon.staticState ) {
 
