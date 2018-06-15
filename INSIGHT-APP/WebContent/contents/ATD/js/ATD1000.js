@@ -368,10 +368,10 @@ function showAttendResult(attendResult){
 		//																if (attendResult.message === "success") {
 		switch ( attendResult.code ) {
 			case -2:
-				swal( "빨리 오셨네요.", "출석체크 시간이 아닙니다.", "warning" );
+				swal( "Sorry!", "출석체크 시간이 아닙니다.", "warning" );
 				break;
 			case -1:
-				swal( "빨리 오셨네요", "수료체크 시간이 아닙니다.", "warning" );
+				swal( "Sorry!", "수료체크 시간이 아닙니다.", "warning" );
 				break;
 			case 0:
 				swal( "늦으셨네요!", "출석체크 시간을 초과했습니다.", "error" );

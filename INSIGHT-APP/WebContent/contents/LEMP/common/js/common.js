@@ -229,9 +229,9 @@ var openBoardFromPush = function(eventNumber) {
         var temp = eventNumber.data.popup_image;
         evnum = temp.split(":")[1];
     } else {
-    	evnum = eventNumber.data.eventsId;
+        evnum = eventNumber.data.eventsId;
     }
-    
+    	
 	var autoLogin = LEMP.Properties.get({
 		"_sKey" : "autoLoginState"
 	});
