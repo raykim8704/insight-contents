@@ -21,8 +21,8 @@ INSIGHT.REST = new Object();
  *              <br> - 운영 서버 주소 : <strong>https://insight.lotte.net/m/</strong>
  */
 
-//INSIGHT.serviceURL = 'http://13.124.83.168:8080/v2/';
-INSIGHT.serviceURL = 'https://insight.lotte.net/m2/';
+INSIGHT.serviceURL = 'http://13.124.83.168:8080/v2/';
+//INSIGHT.serviceURL = 'https://insight.lotte.net/m2/';
 
 
 $.ajaxSettings.contentType = "application/json";

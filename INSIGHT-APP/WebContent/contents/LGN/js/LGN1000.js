@@ -74,94 +74,101 @@ var page = {
 		$( '#remember-me' ).click( function () {
 			console.log( $( this ).is( ':checked' ) );
 		} );
-
-		$( '#button_login' ).click( function () {
-			var id = $( '#username' ).val();
-			var pw = $( '#password' ).val();
-			var autoLoginState = $( '#remember-me' ).is( ':checked' );
-			console.log( autoLoginState );
-
-
-			var lomeoUuid;
-			LEMP.EDUApp.showProgressBar( true );
-			var validationResult = checkValidation( id, pw );
-			if ( !block ) {
-				block = true;
-				if ( !validationResult ) {
-					swal( "로그인 실패", "로그인 정보를 입력해주세요.", "warning" )
+		$('#button_login').click(function(){
+			$( '#login-form' ).submit( function (e) {
+				e.stopPropagation();
+				
+				
+				var id = $( '#username' ).val();
+				var pw = $( '#password' ).val();
+				var autoLoginState = $( '#remember-me' ).is( ':checked' );
+				console.log( autoLoginState );
 
 
+				var lomeoUuid;
+				LEMP.EDUApp.showProgressBar( true );
+				var validationResult = checkValidation( id, pw );
+				if ( !block ) {
+					block = true;
+					if ( !validationResult ) {
+						swal( "로그인 실패", "로그인 정보를 입력해주세요.", "warning" )
 
-				} else if ( validationResult ) {
-					//loginResult = INSIGHT.REST.loginService(id, pw,lomeoUuid);
-					loginResult = INSIGHT.REST.loginService( id, pw );
-					console.log( loginResult );
 
-					if ( loginResult.customStatus === "success" ) {
 
-						var needPwInit = loginResult.pwChangeReq;
-						page.setLoginInfo( loginResult, pw, autoLoginState );
+					} else if ( validationResult ) {
+						//loginResult = INSIGHT.REST.loginService(id, pw,lomeoUuid);
+						loginResult = INSIGHT.REST.loginService( id, pw );
+						console.log( loginResult );
 
-						if ( needPwInit != 1 ) {
+						if ( loginResult.customStatus === "success" ) {
 
-							var unum = loginResult.id;
-							unum = unum.toString();
-							console.log( 'login result id ', unum );
+							var needPwInit = loginResult.pwChangeReq;
+							page.setLoginInfo( loginResult, pw, autoLoginState );
 
-							LEMP.EDUApp.startLomeoPush( {
-								"_scustno": unum,
-								"_sagentid": "insight",
-//								"_sserverurl": "http://210.93.181.227:8080/apis/",
-								"_sserverurl": "https://papi.bizlotte.com:8080/apis/",
-								"_spackagename": "net.ldcc.insight",
-								"_fCallback": function ( res ) {
-									LEMP.EDUApp.getLomeoUuid( {
-										"_fCallback": function ( res ) {
-											if ( res.result === "true" || res.result === true ) {
-												var pushUUIDResult = INSIGHT.REST.sendUUIDService( loginResult.token, res.UUID );
+							if ( needPwInit != 1 ) {
 
-												if ( pushUUIDResult.customStatus === 'success' ) {
-													//INSIGHT.REST.setInsightPushAllowState(0);
+								var unum = loginResult.id;
+								unum = unum.toString();
+								console.log( 'login result id ', unum );
+
+								LEMP.EDUApp.startLomeoPush( {
+									"_scustno": unum,
+									"_sagentid": "insight",
+//									"_sserverurl": "http://210.93.181.227:8080/apis/",
+									"_sserverurl": "https://papi.bizlotte.com:8080/apis/",
+									"_spackagename": "net.ldcc.insight",
+									"_fCallback": function ( res ) {
+										LEMP.EDUApp.getLomeoUuid( {
+											"_fCallback": function ( res ) {
+												if ( res.result === "true" || res.result === true ) {
+													var pushUUIDResult = INSIGHT.REST.sendUUIDService( loginResult.token, res.UUID );
+
+													if ( pushUUIDResult.customStatus === 'success' ) {
+														//INSIGHT.REST.setInsightPushAllowState(0);
+													} else {
+														LEMP.EDUApp.errorService( pushUUIDResult, "알림 등록" );
+													}
+													LEMP.Window.open( {
+														"_sPagePath": "MAN/html/MAN1000.html"
+													} );
 												} else {
-													LEMP.EDUApp.errorService( pushUUIDResult, "알림 등록" );
+													LEMP.Window.open( {
+														"_sPagePath": "MAN/html/MAN1000.html"
+													} );
 												}
-												LEMP.Window.open( {
-													"_sPagePath": "MAN/html/MAN1000.html"
-												} );
-											} else {
-												LEMP.Window.open( {
-													"_sPagePath": "MAN/html/MAN1000.html"
-												} );
 											}
-										}
-									} );
-								}
+										} );
+									}
+								} );
+							} else if ( needPwInit == 1 ) {
+								LEMP.Window.open( {
+									"_sPagePath": "LGN/html/LGN2000.html",
+									"_oMessage": {
+										"_oResult": loginResult
+									}
+								} );
+							}
+						} else if ( loginResult.customStatus === "failed" ) {
+							LEMP.EDUApp.showProgressBar( false );
+							LEMP.Properties.set( {
+								_sKey: "autoLoginState",
+								_vValue: false
 							} );
-						} else if ( needPwInit == 1 ) {
-							LEMP.Window.open( {
-								"_sPagePath": "LGN/html/LGN2000.html",
-								"_oMessage": {
-									"_oResult": loginResult
-								}
-							} );
+							alertReasonForeLoginFailure( loginResult.status, loginResult.responseJSON );
 						}
-					} else if ( loginResult.customStatus === "failed" ) {
-						LEMP.EDUApp.showProgressBar( false );
-						LEMP.Properties.set( {
-							_sKey: "autoLoginState",
-							_vValue: false
-						} );
-						alertReasonForeLoginFailure( loginResult.status, loginResult.responseJSON );
 					}
 				}
-			}
-			if ( !timer ) {
-				timer = setTimeout( function () {
-					timer = null;
-					block = false;
-				}, 2000 );
-			}
-		} );
+				if ( !timer ) {
+					timer = setTimeout( function () {
+						timer = null;
+						block = false;
+					}, 2000 );
+				}
+				//e.preventDefault();
+				return false;
+			} );
+		})
+		
 	},
 
 	setLoginInfo: function ( loginResult, pw, autoLoginState ) {
