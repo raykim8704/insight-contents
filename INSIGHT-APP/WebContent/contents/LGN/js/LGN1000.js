@@ -254,9 +254,6 @@ var alertReasonForeLoginFailure = function ( status, reasonOfFailure ) {
 	}catch(exception){
 		Materialize.toast( '계속해서 로그인 실패시, 관리자에게 문의하세요.', 2000 )
 	}
-	
-
-	
 }
 
 

@@ -57,25 +57,6 @@ var page = {
 		console.log( 'classid:' + eventDetail.classes[ 0 ].id );
 		page.initLayout();
 		page.initInterface( eventID );
-		
-		var elems = [].slice.call(document.querySelectorAll('.mobile-verify.pass'));
-
-		elems.forEach(function(el, i, array) {
-		  el.onkeypress = function(event) {
-		    // Validate key is a number
-		    var keycode = event.which;
-		    if (!(event.shiftKey === false && 
-		        (keycode === 46 || keycode === 8 || keycode === 37 || keycode === 39 || 
-		        (keycode >= 48 && keycode <= 57)))) {
-		      return;
-		    }
-		    var nextInput = i + 1;
-		    if (nextInput <= array.length) {
-		        array[nextInput].focus();
-		    }
-		  };
-		});
-
 	},
 
 	initLayout: function () {
@@ -99,9 +80,9 @@ var page = {
 
 			setTimeout( function () {
 				hiddenAtdButtonCount = 5;
-			}, 3000 );
+			}, 10000 );
 			
-			hiddenAtdButtonCount == 0 ? $('#hidden_atd_modal').modal('open') : console.log("not yet!!")
+			hiddenAtdButtonCount == 0 ? ($('#hidden_atd_modal').modal('open'), $('#input_hidden').val(""),hiddenAtdButtonCount = 5) : console.log("not yet!!")
 		})
 
 		$( '#btn-location' ).click( function () {
@@ -134,19 +115,17 @@ var page = {
 		} );
 		
 		$( '#btn-hidden-attend' ).click( function () {
-			var pwd = $('#input_hidden_1').val() + $('#input_hidden_2').val() + $('#input_hidden_3').val() + $('#input_hidden_4').val(); 
+			var pwd = $('#input_hidden').val();
+			$('#input_hidden').val("");
 			var attendResult = INSIGHT.REST.attendPWService( token, eventID, eventDetail.classes[ 0 ].id, pwd )
 			showAttendResult(attendResult);
 			if (attendResult.code==2 || attendResult.conde==3 || attendResult.code==304){
 				$('#hidden_atd_modal').modal('close')
 			}else{
-				$('#input_hidden_1').val("");
-				$('#input_hidden_2').val("");
-				$('#input_hidden_3').val("");
-				$('#input_hidden_4').val("");
+				
 			}
 		} );
-
+		
 	}
 }
 

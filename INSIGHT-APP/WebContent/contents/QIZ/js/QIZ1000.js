@@ -90,21 +90,30 @@ var page = {
 
 //최초 진입시에만 영향을 미친다.
 function initControl() {
-	fbDB.child( 'ALL' ).once( 'value' ).then( function ( snapshot ) {
-		allIsOnGoing = snapshot.val().isOnGoing === null ? false : snapshot.val().isOnGoing
-		const qGroup = snapshot.val().lastQgroup
-		insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup ) //24?
-		allIsOnGoing ?
-			fbDB.child( 'ALL' ).child( qGroup ).once( 'value' ).then( function ( data ) {
-				data.val().quizINFO.viewState === 'RUN' ? revealBtn( data.val().quizINFO, insightQuizInfo ) : hideBtn()
-			} ) :
-			fbDB.child( classNum ).once( 'value' ).then( function ( snapshot ) {
-				fbDB.child( classNum ).child( qGroup ).once( 'value' ).then( function ( data ) {
+	try {
+		fbDB.child( 'ALL' ).once( 'value' ).then( function ( snapshot ) {
+			allIsOnGoing = snapshot.val().isOnGoing === null ? false : snapshot.val().isOnGoing
+			const qGroup = snapshot.val().lastQgroup
+			
+			insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup ) //24?
+			allIsOnGoing ?
+				fbDB.child( 'ALL' ).child( qGroup ).once( 'value' ).then( function ( data ) {
 					data.val().quizINFO.viewState === 'RUN' ? revealBtn( data.val().quizINFO, insightQuizInfo ) : hideBtn()
+				} ) :
+				fbDB.child( classNum ).once( 'value' ).then( function ( snapshot ) {
+					fbDB.child( classNum ).child( qGroup ).once( 'value' ).then( function ( data ) {
+						data.val().quizINFO.viewState === 'RUN' ? revealBtn( data.val().quizINFO, insightQuizInfo ) : hideBtn()
+					} )
 				} )
-			} )
-	} )
-	initControl = null;
+		} )    
+	}
+	catch(exception){
+	   
+	}finally{
+
+		initControl = null;
+	}
+	
 }
 
 function revealBtn( fbDB, insightQuizInfo ) {
