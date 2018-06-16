@@ -21,8 +21,8 @@ INSIGHT.REST = new Object();
  *              <br> - 운영 서버 주소 : <strong>https://insight.lotte.net/m/</strong>
  */
 
-INSIGHT.serviceURL = 'http://13.124.83.168:8080/v2/';
-//INSIGHT.serviceURL = 'https://insight.lotte.net/m2/';
+//INSIGHT.serviceURL = 'http://13.124.83.168:8080/v2/';
+INSIGHT.serviceURL = 'https://insight.lotte.net/m2/';
 
 
 $.ajaxSettings.contentType = "application/json";
@@ -509,8 +509,8 @@ INSIGHT.REST.getQuizDetails = function ( token, eventNumber, quizNumber ) {
 }
 
 //3.     행사 설문 리스트 가져오기 (GET - /event/{이벤트번호}/class/all/survey)
-INSIGHT.REST.f = function ( token, eventNumber ) {
-	var url = INSIGHT.serviceURL + "event/" + eventNumber + "/class/all/survey";
+INSIGHT.REST.getSurveyListAll = function ( token, eventNumber ) {
+	var url = INSIGHT.serviceURL + "event/" + eventNumber + "/class/all/mobilesurvey";
 	return _get( url, token );
 }
 
