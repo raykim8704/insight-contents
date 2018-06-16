@@ -50,15 +50,9 @@ var page = {
 		$( '.card-panel' ).click( function () {
 			var complete = $( this ).attr( 'complete' );
 			var surNum = $( this ).attr( 'surNum' )
-			parseInt( complete ) ? swal( '설문 완료', '제출 완료된 설문입니다' ) :
-				LEMP.Window.open( {
-					'_sPagePath': 'SUR/html/SUR2000.html',
-					'_oMessage': {
-						'surNum': surNum,
-						'evnum': eventID,
-						'classNum': classNum
-					}
-				} )
+			var time = $(this).attr('time');
+			parseInt( complete ) ? swal( '설문 완료', '제출 완료된 설문입니다' ) : openSurvey(surNum,time);
+				
 		} )
 	},
 	initInterface: function () {
@@ -67,7 +61,32 @@ var page = {
 		} );
 	}
 }
+function openSurvey(surNum, time){
+	console.log(time)
+	
+	var date = time.split(' ')[0];
+	var year = date.split('-')[0];
+	var month = date.split('-')[1];
+	var day = date.split('-')[2];
+	
+	var targetDate = new Date(parseInt(year),parseInt(month)+1,parseInt(day));
+	var endTime = time.split(' ')[1];
+	
+	var today =  new Date();
 
+	(today >= targetDate ) ? 
+	LEMP.Window.open( {
+		'_sPagePath': 'SUR/html/SUR2000.html',
+		'_oMessage': {
+			'surNum': surNum,
+			'evnum': eventID,
+			'classNum': classNum
+		}
+	} ) : 
+	swal( 'Sorry!', '설문 시작 전 입니다.' );
+	
+
+}
 function renderEmptyList() {
 
 	$( '#survey-section' ).empty();
@@ -121,7 +140,8 @@ function renderSurveyItem( obj, index ) {
 		class: 'card-panel ' + backgroundColor,
 		id: 'card-panel-' + index,
 		surNum: obj.id,
-		complete: obj.complete
+		complete: obj.complete,
+		time : endDate
 
 	} ) );
 	$( '#card-panel-' + index ).append( $( '<span/>', {
@@ -132,6 +152,7 @@ function renderSurveyItem( obj, index ) {
 	$( '#card-panel-' + index ).append( $( '<span/>', {
 		class: dateFontColor,
 		text: dateText
+		
 	} ) );
 
 

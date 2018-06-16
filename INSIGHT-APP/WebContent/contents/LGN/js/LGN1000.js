@@ -141,12 +141,45 @@ var page = {
 									}
 								} );
 							} else if ( needPwInit == 1 ) {
-								LEMP.Window.open( {
-									"_sPagePath": "LGN/html/LGN2000.html",
-									"_oMessage": {
-										"_oResult": loginResult
+								var unum = loginResult.id;
+								unum = unum.toString();
+								console.log( 'login result id ', unum );
+
+								LEMP.EDUApp.startLomeoPush( {
+									"_scustno": unum,
+									"_sagentid": "insight",
+//									"_sserverurl": "http://210.93.181.227:8080/apis/",
+									"_sserverurl": "https://papi.bizlotte.com:8080/apis/",
+									"_spackagename": "net.ldcc.insight",
+									"_fCallback": function ( res ) {
+										LEMP.EDUApp.getLomeoUuid( {
+											"_fCallback": function ( res ) {
+												if ( res.result === "true" || res.result === true ) {
+													var pushUUIDResult = INSIGHT.REST.sendUUIDService( loginResult.token, res.UUID );
+
+													if ( pushUUIDResult.customStatus === 'success' ) {
+														//INSIGHT.REST.setInsightPushAllowState(0);
+													} else {
+														LEMP.EDUApp.errorService( pushUUIDResult, "알림 등록" );
+													}
+													LEMP.Window.open( {
+														"_sPagePath": "LGN/html/LGN2000.html"
+													} );
+												} else {
+													LEMP.Window.open( {
+														"_sPagePath": "LGN/html/LGN2000.html"
+													} );
+												}
+											}
+										} );
 									}
 								} );
+//								LEMP.Window.open( {
+//									"_sPagePath": "LGN/html/LGN2000.html",
+//									"_oMessage": {
+//										"_oResult": loginResult
+//									}
+//								} );
 							}
 						} else if ( loginResult.customStatus === "failed" ) {
 							LEMP.EDUApp.showProgressBar( false );

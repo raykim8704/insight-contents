@@ -7,6 +7,8 @@ var attendList;
 var eventID;
 var classNum;
 var token;
+var timer;
+var block = false
 
 var styles = {
 	ATTEND: 0,
@@ -71,8 +73,20 @@ var page = {
 	initInterface: function ( eventID ) {
 
 		$( '#btn-attend' ).click( function () {
-			tryAttendance();
-
+			if(!block){
+				block = true;
+				console.log( $(this).attr('complete'));
+				var complete = $(this).attr('complete');
+				if ( parseInt(complete) != 1 ){
+			  	tryAttendance();
+				}
+			}
+			if ( !timer ) {
+				timer = setTimeout( function () {
+					timer = null;
+					block = false;
+				}, 2000 );
+			}
 		} );
 
 		$('#hidden_atd_btn').click(function(){
@@ -163,7 +177,9 @@ var checkTodayAttend = function ( attendList ) {
 						renderAttendButton( buttonText[ 1 ], attendColor[ styles.ATTEND ], attendColor[ styles.COMPLETION_B ], attendColor[ styles.TOCOMPLETION ] );
 					} else {
 						// 완료됨
-						renderAttendButton( buttonText[ 4 ], attendColor[ styles.ATTEND ], attendColor[ styles.TOCOMPLETION ], attendColor[ styles.COMPLETION_B ], styles.REMOVE_PULSE )
+						renderAttendButton( buttonText[ 4 ], attendColor[ styles.ATTEND ], attendColor[ styles.TOCOMPLETION ], attendColor[ styles.COMPLETION_B ], styles.REMOVE_PULSE );
+						//새로운값 ㄲ 
+						$( '#btn-attend' ).attr('complete',1);
 					}
 				}
 			} else {

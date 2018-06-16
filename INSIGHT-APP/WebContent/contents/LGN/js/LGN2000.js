@@ -49,8 +49,12 @@ function initPassword( enterPw, userid ) {
 				closeOnConfirm: false,
 				showLoaderOnConfirm: true,
 			}, function () {
+				LEMP.Properties.set({
+					'_sKey'  : "userPw",
+					'_vValue': enterPw
+					});
 				LEMP.Window.replace( {
-					"_sPagePath": "LGN/html/LGN1000.html"
+					"_sPagePath": "MAN/html/MAN1000.html"
 				} );
 			} );
 		} else if ( pwInitResult.status == 479 ) {

@@ -239,7 +239,7 @@ var page = {
 					location = '-';
 				}
 
-				$( '#table-' + index ).append( '<tr><td class=\"white center-align\ " colspan=\'3\'><span class=\"white grey-text \">' + agendaValue.title + '</span></td></tr>' );
+				$( '#table-' + index ).append( '<tr><td class=\"white center-align\ " colspan=\'1\'><span class=\"white grey-text \">'+ agendaValue.presenter+' </span></td> <td class=\"white center-align\ " colspan=\'2\'><span class=\"white light-blue-text text-darken-4 \">' + agendaValue.title +'</span></td></tr>' );
 //				$( '#table-' + index ).append( $( '<tbody/>', {
 //					id: 'tbody' + index + agendaIndex
 //				} ) );
