@@ -8,7 +8,10 @@ var eventID,
 	fbDB,
 	insightQuizInfo,
 	allListener,
-	classListener;
+	classListener,
+	isRun;
+
+var qGroup = -1;
 var allIsOnGoing = false;
 var commentList = new Array();
 
@@ -60,27 +63,50 @@ var page = {
 		initControl()
 
 		fbDB.child( 'ALL' ).on( 'child_changed', function ( snapshot ) {
-
-			( snapshot.key === 'isOnGoing' && snapshot.val() !== allIsOnGoing ) ? ( allIsOnGoing = !allIsOnGoing, hideBtn() ) : null
-
-			allIsOnGoing ?
-				fbDB.child( 'ALL' ).once( 'value' ).then( function ( snapshot ) {
-					const qGroup = snapshot.val().lastQgroup;
-					insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup )
-					fbDB.child( 'ALL' ).child( qGroup ).once( 'value' ).then( function ( data ) { // child = All 내의 마지막 퀴즈그룹(lastQgroup).
-						data.val().quizINFO.viewState === 'RUN' ? revealBtn( data.val().quizINFO, insightQuizInfo ) : hideBtn()
-					} )
-				} ) :
-				hideBtn()
+			fbDB.child( 'ALL' ).once( 'value' ).then( function ( snapshot ) {
+				if(snapshot.val()!=null){
+					allIsOnGoing = (snapshot.val().isOnGoing === null ? false : snapshot.val().isOnGoing)
+					allIsOnGoing ?
+						fbDB.child( 'ALL' ).once( 'value' ).then( function ( snapshot ) {
+							qGroup != snapshot.val().lastQgroup ? 
+									(qGroup = snapshot.val().lastQgroup, insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup ))
+									: null
+									
+							fbDB.child( 'ALL' ).child( qGroup ).once( 'value' ).then( function ( data ) { // child = All 내의 마지막 퀴즈그룹(lastQgroup).
+								if(data.val().quizINFO.viewState !== 'RUN' || isRun!=true){
+									if(data.val().quizINFO.viewState ==='RUN'){
+										revealBtn(data.val().quizINFO, insightQuizInfo)
+										isRun=true
+									}else{
+										hideBtn()
+										isRun=false
+									}
+								}
+									
+							} )
+						} ) :
+						hideBtn()							
+					}
+				});
 		} )
 
 		fbDB.child( classNum ).on( 'child_changed', function ( snapshot ) {
 			if ( !allIsOnGoing ) {
 				fbDB.child( classNum ).once( 'value' ).then( function ( snapshot ) {
-					const qGroup = snapshot.val().lastQgroup
-					insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup )
+					qGroup != snapshot.val().lastQgroup ? 
+							(qGroup = snapshot.val().lastQgroup, insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup ))
+							: null
+							
 					fbDB.child( classNum ).child( qGroup ).once( 'value' ).then( function ( data ) { // child = All 내의 마지막 퀴즈그룹(lastQgroup).
-						data.val().quizINFO.viewState === 'RUN' ? revealBtn( data.val().quizINFO, insightQuizInfo ) : hideBtn()
+						if(data.val().quizINFO.viewState !== 'RUN' || isRun!=true){
+							if(data.val().quizINFO.viewState ==='RUN'){
+								revealBtn(data.val().quizINFO, insightQuizInfo)
+								isRun=true
+							}else{
+								hideBtn()
+								isRun=false
+							}
+						}
 					} )
 				} )
 			}
@@ -92,19 +118,24 @@ var page = {
 function initControl() {
 	try {
 		fbDB.child( 'ALL' ).once( 'value' ).then( function ( snapshot ) {
-			allIsOnGoing = snapshot.val().isOnGoing === null ? false : snapshot.val().isOnGoing
-			const qGroup = snapshot.val().lastQgroup
+			if(snapshot.val()!=null){
+				allIsOnGoing = snapshot.val().isOnGoing === null ? false : snapshot.val().isOnGoing
+					qGroup = snapshot.val().lastQgroup
+					
+					insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup )
+					allIsOnGoing ?
+						fbDB.child( 'ALL' ).child( qGroup ).once( 'value' ).then( function ( data ) {
+							data.val().quizINFO.viewState === 'RUN' ? (revealBtn( data.val().quizINFO, insightQuizInfo ),isRun=true) : (hideBtn(),isRun=false)
+						} ) :
+						fbDB.child( classNum ).once( 'value' ).then( function ( data2 ) {
+							qGroup = data2.val().lastQgroup
+							insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup )
+							fbDB.child( classNum ).child( qGroup ).once( 'value' ).then( function ( data ) {
+								data.val().quizINFO.viewState === 'RUN' ? (revealBtn( data.val().quizINFO, insightQuizInfo ), isRun=true) : (hideBtn(). isRun=false)
+							} )
+						} )	
+			}
 			
-			insightQuizInfo = INSIGHT.REST.getQuizDetailList( token, eventID, qGroup ) //24?
-			allIsOnGoing ?
-				fbDB.child( 'ALL' ).child( qGroup ).once( 'value' ).then( function ( data ) {
-					data.val().quizINFO.viewState === 'RUN' ? revealBtn( data.val().quizINFO, insightQuizInfo ) : hideBtn()
-				} ) :
-				fbDB.child( classNum ).once( 'value' ).then( function ( snapshot ) {
-					fbDB.child( classNum ).child( qGroup ).once( 'value' ).then( function ( data ) {
-						data.val().quizINFO.viewState === 'RUN' ? revealBtn( data.val().quizINFO, insightQuizInfo ) : hideBtn()
-					} )
-				} )
 		} )    
 	}
 	catch(exception){
@@ -117,6 +148,9 @@ function initControl() {
 }
 
 function revealBtn( fbDB, insightQuizInfo ) {
+	$('#background-text').text('Go Go !')
+	$('#background-text').removeClass('blinking')
+	$('#my-spinner').removeClass('preloader-wrapper big active center-align')
 	const realInfo = insightQuizInfo.data.questions.filter( function ( el ) {
 		return el.id == fbDB.quizNum
 	} )[ 0 ]
@@ -156,6 +190,9 @@ function revealBtn( fbDB, insightQuizInfo ) {
 
 
 function hideBtn() {
+	$('#background-text').text('Quiz가 곧 시작 됩니다')
+	$('#background-text').addClass('blinking')
+	$('#my-spinner').addClass('preloader-wrapper big active center-align')
 	$( '#oxButton' ).modal( 'close' )
 	$( '#fourButton' ).modal( 'close' )
 	$( '#openEndedButton' ).modal( 'close' )

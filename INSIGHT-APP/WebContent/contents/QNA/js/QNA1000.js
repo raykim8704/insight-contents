@@ -113,7 +113,7 @@ var renderQuestionList = function ( eventID, refresh = false ) {
 
 			$('#card-section').empty();
 			
-			jQuery.each( questionList.data.array, function ( index, value ) {
+			jQuery.each( _arrQuestions, function ( index, value ) {
 				index = index + ( 10 * ( pageCount - 1 ) );
 
 				console.log( 'in' );

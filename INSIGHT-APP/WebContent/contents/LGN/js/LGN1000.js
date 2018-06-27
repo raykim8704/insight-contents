@@ -1,15 +1,18 @@
+
 /**
  * @module
  * @description 모바일 애플리케이션의 로그인 페이지에서 이용됩니다.
  */
-var exitCount = 0;
-LEMP.addEvent( "backbutton", "callbackBackButton" );
+var exitCount = 0;  
 var block = false;
-/**
- * 저희 앱은 LDCC의 <strong>L.EMP Platform</strong> 을 이용해 만들었습니다.
+
+/* 저희 앱은 LDCC의 <strong>L.EMP Platform</strong> 을 이용해 만들었습니다.
  * <br> LGN1000 모듈은 <strong>page</strong> class 안에서 native 기능은 L.EMP 라이브러리를, 그 외 기능은 jQuery를 이용하여 동작합니다.
  * @type {Object}
  */
+//var pushServerURL = "http://210.93.181.227:8080/apis/";
+var pushServerURL = "https://papi.bizlotte.com:8080/apis/"
+	
 
 var page = {
 
@@ -75,10 +78,11 @@ var page = {
 			console.log( $( this ).is( ':checked' ) );
 		} );
 		$('#button_login').click(function(){
+						
 			$( '#login-form' ).submit( function (e) {
+				
+				
 				e.stopPropagation();
-				
-				
 				var id = $( '#username' ).val();
 				var pw = $( '#password' ).val();
 				var autoLoginState = $( '#remember-me' ).is( ':checked' );
@@ -114,8 +118,7 @@ var page = {
 								LEMP.EDUApp.startLomeoPush( {
 									"_scustno": unum,
 									"_sagentid": "insight",
-//									"_sserverurl": "http://210.93.181.227:8080/apis/",
-									"_sserverurl": "https://papi.bizlotte.com:8080/apis/",
+									"_sserverurl": pushServerURL,
 									"_spackagename": "net.ldcc.insight",
 									"_fCallback": function ( res ) {
 										LEMP.EDUApp.getLomeoUuid( {
@@ -148,8 +151,7 @@ var page = {
 								LEMP.EDUApp.startLomeoPush( {
 									"_scustno": unum,
 									"_sagentid": "insight",
-//									"_sserverurl": "http://210.93.181.227:8080/apis/",
-									"_sserverurl": "https://papi.bizlotte.com:8080/apis/",
+									"_sserverurl": pushServerURL,
 									"_spackagename": "net.ldcc.insight",
 									"_fCallback": function ( res ) {
 										LEMP.EDUApp.getLomeoUuid( {
@@ -163,23 +165,24 @@ var page = {
 														LEMP.EDUApp.errorService( pushUUIDResult, "알림 등록" );
 													}
 													LEMP.Window.open( {
-														"_sPagePath": "LGN/html/LGN2000.html"
+														"_sPagePath": "LGN/html/LGN2000.html",
+														"_oMessage": {
+															"_oResult": loginResult
+														}
 													} );
 												} else {
 													LEMP.Window.open( {
-														"_sPagePath": "LGN/html/LGN2000.html"
+														"_sPagePath": "LGN/html/LGN2000.html",
+														"_oMessage": {
+															"_oResult": loginResult
+														}
 													} );
 												}
 											}
 										} );
 									}
 								} );
-//								LEMP.Window.open( {
-//									"_sPagePath": "LGN/html/LGN2000.html",
-//									"_oMessage": {
-//										"_oResult": loginResult
-//									}
-//								} );
+
 							}
 						} else if ( loginResult.customStatus === "failed" ) {
 							LEMP.EDUApp.showProgressBar( false );
@@ -288,6 +291,21 @@ var alertReasonForeLoginFailure = function ( status, reasonOfFailure ) {
 		Materialize.toast( '계속해서 로그인 실패시, 관리자에게 문의하세요.', 2000 )
 	}
 }
+
+
+//
+//$('#testLogin').click(function(){
+//	var i;
+//	var res;
+//	for ( i=0 ; i < testAccount.length; i++){
+//		var _tid = testAccount[i];
+//		i++;
+//		var _tpw = testAccount[i];
+//			console.log(_tid,_tpw);
+//			res = INSIGHT.REST.loginService( _tid, _tpw );
+//			result.push(res.customStatus);
+//	}	
+//});
 
 
 /**

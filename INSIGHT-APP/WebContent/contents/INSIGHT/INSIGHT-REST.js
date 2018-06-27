@@ -15,7 +15,7 @@ INSIGHT.REST = new Object();
 
 
 /**
- * @namespace
+ * @namespaces
  * @description REST API를 호출하는 주소입니다.
  *              <br> - 개발 서버 주소 : <strong>http://13.124.83.168:8080/</strong>
  *              <br> - 운영 서버 주소 : <strong>https://insight.lotte.net/m/</strong>

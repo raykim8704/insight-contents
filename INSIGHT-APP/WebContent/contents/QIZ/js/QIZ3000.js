@@ -17,6 +17,7 @@ var page = {
 	 * 안드로이드에서 back 버튼을 눌렀을 경우, 행사 정보로 돌아갑니다.
 	 */
 	callbackBackButton: function () {
+		INSIGHT.MC.remoteController.stopQuiz( selectedQuiz.id, selectedQuiz.type )
 		INSIGHT.MC.remoteController.offEvent( eventid, classNum )
 		
 		LEMP.Window.replace( {
@@ -37,7 +38,12 @@ var page = {
 		classNum = quizInfoDetail.classnum
 
 		$( "#header" ).load( "../../common/public/html/header.html" )
-		$( "#sideNav" ).load( "../../common/public/html/sideNav.html" )
+		$( "#sideNav" ).load( "../../common/public/html/sideNav.html", function(){
+			$( '#menu-eventdetail, #menu-attend,#menu-quiz,#menu-survey-li,#menu-board,#menu-qna,#menu-reference,#menu-eventlist,#button_logout' ).click( function ( ) {
+				INSIGHT.MC.remoteController.stopQuiz( selectedQuiz.id, selectedQuiz.type )
+				INSIGHT.MC.remoteController.offEvent( eventid, classNum )
+			})	
+		} )
 		detailRemocon = $( '#card-content-current-quiz' ).clone()
 		$( '#detail-remocon' ).empty()
 
@@ -147,11 +153,10 @@ var page = {
 		} )
 	},
 	initInterface: function () {
-		$( '#menu-eventdetail, #menu-attend,#menu-quiz,#menu-survey-li,#menu-board,#menu-qna,#menu-reference,#menu-eventlist,#button_logout' ).click( function ( ) {
-			INSIGHT.MC.remoteController.offEvent( eventid, classNum )
-		})
+
 		
 		$( '#btn-cancle' ).click( function () {
+			INSIGHT.MC.remoteController.stopQuiz( selectedQuiz.id, selectedQuiz.type )
 			INSIGHT.MC.remoteController.offEvent( eventid, classNum );
 
 			LEMP.Window.replace( {

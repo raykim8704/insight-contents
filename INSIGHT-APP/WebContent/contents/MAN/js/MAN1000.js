@@ -114,6 +114,7 @@ var page = {
 	},
 
 	renderEventList: function ( eventList ) {
+		
 		$( '#ongoing_event_lists' ).empty();
 		$( '#ended_event_lists' ).empty();
 		var onGoingEventList;
@@ -122,10 +123,9 @@ var page = {
 		console.log( eventList );
 
 		( eventList.data.totalCount > 0 ) ?
-		(
-			onGoingEventList = _map( sortOngoing, eventList.data.array ),
-			endEventList = _map( sortEnd, eventList.data.array ),
-			checkEachList( onGoingEventList, endEventList )
+		( onGoingEventList = _filter(removeNull, _map( sortOngoing, eventList.data.array )),
+		 endEventList = _filter(removeNull, _map( sortEnd, eventList.data.array )),
+		 checkEachList( onGoingEventList, endEventList )
 		) :
 		( renderEmptyList( [ '#ongoing', '#ended' ] ) );
 
@@ -155,9 +155,6 @@ var page = {
 				} );
 			}
 		} );
-
-
-
 	}
 }
 
@@ -171,9 +168,18 @@ function _map( f, coll ) {
 	return arr;
 }
 
+function _filter (f, coll) {
+	var arr  = coll.filter(f);
+	return arr;
+}
+
+function removeNull(v){
+	return v != 'null'
+}
+
 function checkEachList( onGoingEventList, endEventList ) {
-	onGoingEventList[ 0 ] != null ? _map( renderList, onGoingEventList ) : renderEmptyList( [ '#ongoing' ] );
-	endEventList[ 0 ] != null ? _map( renderList, endEventList ) : renderEmptyList( [ '#ended' ] );
+	onGoingEventList.length > 0 ? _map( renderList, onGoingEventList ) : renderEmptyList( [ '#ongoing' ] );
+	endEventList.length > 0  ? _map( renderList, endEventList ) : renderEmptyList( [ '#ended' ] );
 }
 
 function sortOngoing( v, i ) {

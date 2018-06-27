@@ -225,10 +225,14 @@ var openBoardFromPush = function(eventNumber) {
 
     var evnum;
 
+    
     if (eventNumber.data.popup_image) {
         var temp = eventNumber.data.popup_image;
         evnum = temp.split(":")[1];
-    } else {
+    }else if (eventNumber.data.evnum){
+    	evnum = eventNumber.data.evnum;
+    }
+    else {
         evnum = eventNumber.data.eventsId;
     }
     	

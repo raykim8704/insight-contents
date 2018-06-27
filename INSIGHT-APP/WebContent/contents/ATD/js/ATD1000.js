@@ -91,12 +91,8 @@ var page = {
 
 		$('#hidden_atd_btn').click(function(){
 			hiddenAtdButtonCount = hiddenAtdButtonCount-1;
-
-			setTimeout( function () {
-				hiddenAtdButtonCount = 5;
-			}, 10000 );
 			
-			hiddenAtdButtonCount == 0 ? ($('#hidden_atd_modal').modal('open'), $('#input_hidden').val(""),hiddenAtdButtonCount = 5) : console.log("not yet!!")
+			hiddenAtdButtonCount == 0 ? ($('#hidden_atd_modal').modal('open'), $('#input_hidden').val(""), hiddenAtdButtonCount = 5) : console.log("not yet!!")
 		})
 
 		$( '#btn-location' ).click( function () {
@@ -133,11 +129,8 @@ var page = {
 			$('#input_hidden').val("");
 			var attendResult = INSIGHT.REST.attendPWService( token, eventID, eventDetail.classes[ 0 ].id, pwd )
 			showAttendResult(attendResult);
-			if (attendResult.code==2 || attendResult.conde==3 || attendResult.code==304){
-				$('#hidden_atd_modal').modal('close')
-			}else{
-				
-			}
+			$('#hidden_atd_modal').modal('close')
+
 		} );
 		
 	}

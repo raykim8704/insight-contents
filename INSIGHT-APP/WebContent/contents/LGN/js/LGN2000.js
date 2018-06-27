@@ -63,6 +63,7 @@ function initPassword( enterPw, userid ) {
 			swal( 'Sorry!', '네트워크 오류로 비밀번호 변경에 실패하였습니다. 잠시후에 다시 시도해 주세요' );
 		}
 	}
+	
 }
 
 function customPwdCheck( _pwd, _id ) {

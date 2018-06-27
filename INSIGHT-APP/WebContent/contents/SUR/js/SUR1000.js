@@ -51,7 +51,8 @@ var page = {
 			var complete = $( this ).attr( 'complete' );
 			var surNum = $( this ).attr( 'surNum' )
 			var time = $(this).attr('time');
-			parseInt( complete ) ? swal( '설문 완료', '제출 완료된 설문입니다' ) : openSurvey(surNum,time);
+			var startDate = $(this).attr('startdate');
+			parseInt( complete ) ? swal( '설문 완료', '제출 완료된 설문입니다' ) : openSurvey(surNum,time,startDate);
 				
 		} )
 	},
@@ -61,29 +62,68 @@ var page = {
 		} );
 	}
 }
-function openSurvey(surNum, time){
+function openSurvey(surNum, time,startDate){
 	console.log(time)
 	
-	var date = time.split(' ')[0];
+	var parsedTime = time.split(' ');
+	
+	var date = parsedTime[0];
 	var year = date.split('-')[0];
 	var month = date.split('-')[1];
 	var day = date.split('-')[2];
 	
-	var targetDate = new Date(parseInt(year),parseInt(month)+1,parseInt(day));
+	var _time = parsedTime[1];
+	var hours = _time.split(':')[0];
+	var mins = _time.split(':')[1];
+	
+	console.log(_time, hours, mins);
+	
+	var _sParsedTime = startDate.split(' ');
+	var _sDate = _sParsedTime[0];
+	var _sYear = _sDate.split('-')[0];
+	var _sMonth = _sDate.split('-')[1];
+	var _sDay = _sDate.split('-')[2]; 
+	var _sTime = _sParsedTime[1];
+	var _sHours = _sTime.split(':')[0];
+	var _sMins = _sTime.split(':')[1];
+	
+	
+	
+	
+	var startDate = new Date(parseInt(_sYear),parseInt(_sMonth)-1,parseInt(_sDay),_sHours,_sMins);
+	var targetDate = new Date(parseInt(year),parseInt(month)-1,parseInt(day),hours,mins);
 	var endTime = time.split(' ')[1];
 	
 	var today =  new Date();
+	console.log('today:',today);
+	console.log('targetdate',targetDate);
+	console.log('time',today.getHours());
 
-	(today >= targetDate ) ? 
-	LEMP.Window.open( {
+	if(today < startDate){
+		swal('Sorry!','설문 시작 전 입니다');
+	}else if (today > targetDate){
+		swal('기한종료','설문 기간이 종료 되었습니다.');
+	}else{
+		LEMP.Window.open( {
 		'_sPagePath': 'SUR/html/SUR2000.html',
 		'_oMessage': {
 			'surNum': surNum,
 			'evnum': eventID,
 			'classNum': classNum
 		}
-	} ) : 
-	swal( 'Sorry!', '설문 시작 전 입니다.' );
+	} ); 
+	}
+	
+//	(today <= targetDate ) ? 
+//	LEMP.Window.open( {
+//		'_sPagePath': 'SUR/html/SUR2000.html',
+//		'_oMessage': {
+//			'surNum': surNum,
+//			'evnum': eventID,
+//			'classNum': classNum
+//		}
+//	} ) : 
+//	swal( '기한종료', '종료된 설문 입니다.' );
 	
 
 }
@@ -130,7 +170,10 @@ function renderSurveyItem( obj, index ) {
 	var title = obj.title;
 	var backgroundColor, fontColor, dateFontColor, dateText;
 	var endDate = obj.endDate.split( ':' );
+	var startDate = obj.startDate.split(':');
 	endDate = endDate[ 0 ] + ':' + endDate[ 1 ];
+	startDate = startDate[0] + ':' + startDate[1];
+	
 
 	obj.complete ?
 		( backgroundColor = 'teal', fontColor = 'white-text', dateFontColor = 'deep-orange-text text-lighten-4', dateText = '설문완료' ) :
@@ -141,7 +184,8 @@ function renderSurveyItem( obj, index ) {
 		id: 'card-panel-' + index,
 		surNum: obj.id,
 		complete: obj.complete,
-		time : endDate
+		time : endDate,
+		startdate : startDate
 
 	} ) );
 	$( '#card-panel-' + index ).append( $( '<span/>', {
